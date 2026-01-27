@@ -1,14 +1,24 @@
 <div class="main">
   <div class="left">
-    <img src="/login.png" />
+    <img src="./login.png" alt="Login Image" />
   </div>
 
   <div class="right">
-    <h2>Issue Tracker Login</h2>
+    <div class="card">
+      <h2>Get Started</h2>
+      <p>Login to your account</p>
 
-    <input type="text" placeholder="Email" />
-    <input type="password" placeholder="Password" />
+      <div class="input-group">
+        <label>Email</label>
+        <input [(ngModel)]="email" type="text" placeholder="Enter your email" />
+      </div>
 
-    <button>Login</button>
+      <div class="input-group">
+        <label>Password</label>
+        <input [(ngModel)]="password" type="password" placeholder="Enter your password" />
+      </div>
+
+      <button (click)="login()">Login</button>
+    </div>
   </div>
 </div>
