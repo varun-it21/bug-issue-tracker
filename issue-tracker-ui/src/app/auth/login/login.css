@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.left {
+  width: 50%;
+  background-color: rgb(255, 117, 90);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.right input {
+  width: 260px;
+  padding: 10px;
+}
+
+.right button {
+  width: 280px;
+  padding: 10px;
+  background-color: rgb(255, 117, 90);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
