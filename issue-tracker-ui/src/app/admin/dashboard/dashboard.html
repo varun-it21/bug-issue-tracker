@@ -39,23 +39,23 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let issue of issues">
-          <td>{{ issue.issue_id }}</td>
-          <td>{{ issue.title }}</td>
-          <td>{{ issue.description }}</td>
-          <td>
-            <span class="badge" [ngClass]="issue.priority">
-              {{ issue.priority }}
-            </span>
-          </td>
-          <td>
-            <span class="status" [ngClass]="issue.status">
-              {{ issue.status }}
-            </span>
-          </td>
-          <td>{{ issue.assignee }}</td>
-        </tr>
-      </tbody>
+  <tr *ngFor="let issue of highPriorityIssues">
+    <td>{{ issue.issueId }}</td>
+    <td>{{ issue.title }}</td>
+    <td>{{ issue.description }}</td>
+    <td>
+      <span class="badge" [ngClass]="issue.priority">
+        {{ issue.priority }}
+      </span>
+    </td>
+    <td>
+      <span class="status" [ngClass]="issue.status">
+        {{ issue.status }}
+      </span>
+    </td>
+    <td>{{ issue.assignedTo }}</td>
+  </tr>
+</tbody>
     </table>
 
   </div>

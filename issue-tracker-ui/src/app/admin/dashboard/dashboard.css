@@ -37,6 +37,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
+  table-layout: fixed; 
 }
 
 thead {
@@ -44,8 +45,11 @@ thead {
 }
 
 th, td {
-  padding: 12px;
+ padding: 12px;
   border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: middle; 
+  word-wrap: break-word;
 }
 
 tr:hover {
@@ -66,4 +70,3 @@ tr:hover {
 .status.Open { color: #2563eb; font-weight: 600; }
 .status.In\ Progress { color: #f59e0b; font-weight: 600; }
 .status.Completed { color: #16a34a; font-weight: 600; }
-

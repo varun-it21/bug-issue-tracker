@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgFor, NgClass } from '@angular/common';
+import { IssueService } from '../../services/issue.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -8,63 +10,66 @@ import { NgFor, NgClass } from '@angular/common';
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css']
 })
-export class AdminDashboard {
+export class AdminDashboard implements OnInit {
 
-  totalIssues = 3;
+  issues: any[] = [];
+
+  totalIssues = 0;
 
   status = {
-    open: 1,
-    inProgress: 1,
-    completed: 1
+    open: 0,
+    inProgress: 0,
+    completed: 0
   };
 
   priority = {
-    high: 1,
-    medium: 1,
-    low: 1
+    high: 0,
+    medium: 0,
+    low: 0
   };
 
-  issues = [
-  {
-    issue_id: 1,
-    title: 'Login Bug',
-    description: 'Login fails for some users',
-    priority: 'High',
-    status: 'Open',
-    assignee: 'John'
-  },
-  {
-    issue_id: 2,
-    title: 'UI Issue',
-    description: 'Button alignment problem',
-    priority: 'Medium',
-    status: 'In Progress',
-    assignee: 'Varun'
-  },
-  {
-    issue_id: 3,
-    title: 'API Error',
-    description: '500 error on dashboard API',
-    priority: 'Low',
-    status: 'Completed',
-    assignee: 'Priya'
-  },
-  {
-    issue_id: 4,
-    title: 'Signup Failure',
-    description: 'User signup not working',
-    priority: 'High',
-    status: 'Open',
-    assignee: 'Arun'
-  },
-  {
-    issue_id: 5,
-    title: 'Database Connection',
-    description: 'DB connection timeout',
-    priority: 'High',
-    status: 'In Progress',
-    assignee: 'Karthik'
-  },
-];
+  constructor(
+    private issueService: IssueService,
+    private router: Router,
+    private cdr: ChangeDetectorRef // ✅ important
+  ) {
+    // ✅ Force Angular to reload dashboard every time
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
+  ngOnInit() {
+    this.loadIssues();
+  }
+
+  loadIssues() {
+    this.issueService.getIssues().subscribe(data => {
+      console.log("Dashboard Issues:", data); // debug
+
+      this.issues = [...data]; // ✅ force refresh
+      this.calculateDashboard();
+
+      this.cdr.detectChanges(); // ✅ force UI update
+    });
+  }
+
+  calculateDashboard() {
+    this.totalIssues = this.issues.length;
+
+    this.status = { open: 0, inProgress: 0, completed: 0 };
+    this.priority = { high: 0, medium: 0, low: 0 };
+
+    for (let issue of this.issues) {
+      if (issue.status === 'Open') this.status.open++;
+      else if (issue.status === 'In Progress') this.status.inProgress++;
+      else if (issue.status === 'Completed') this.status.completed++;
+
+      if (issue.priority === 'High') this.priority.high++;
+      else if (issue.priority === 'Medium') this.priority.medium++;
+      else if (issue.priority === 'Low') this.priority.low++;
+    }
+  }
+
+  get highPriorityIssues() {
+    return this.issues.filter(i => i.priority === 'High');
+  }
 }

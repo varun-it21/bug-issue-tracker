@@ -15,6 +15,7 @@ export class AdminLayout {
 
   constructor(private router: Router) {}
 
+  
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }

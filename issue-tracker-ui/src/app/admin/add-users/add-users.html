@@ -1,0 +1,56 @@
+<!-- <div class="add-user-wrapper">
+
+  <div class="add-user-container">
+    <h2>➕ Add New User</h2><br><br>
+
+    <form (ngSubmit)="addIssue()">
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" [(ngModel)]="issue.title" name="title" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <textarea [(ngModel)]="issue.description" name="description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <select [(ngModel)]="issue.priority" name="priority" required>
+          <option value="">Select Priority</option>
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Status</label>
+        <select [(ngModel)]="issue.status" name="status" required>
+          <option value="">Select Status</option>
+          <option>Open</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+  <label>Assignee</label>
+  <select [(ngModel)]="issue.assignee" name="assignee" required>
+    <option value="">Select Assignee</option>
+    <option *ngFor="let user of users">{{ user }}</option>
+  </select>
+</div>
+
+      <div class="form-group">  
+        <label>Deadline</label>
+        <input type="date" [(ngModel)]="issue.deadline" name="deadline">
+      </div>
+
+      <button type="submit">Add Issue</button>
+
+    </form>
+  </div>
+
+</div> -->

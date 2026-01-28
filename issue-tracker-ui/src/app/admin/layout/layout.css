@@ -93,3 +93,8 @@
 .dropdown a:hover {
   background: #f1f5f9;
 }
+
+span{
+  color: #ff6f61;
+  font-weight: bold;
+}

@@ -1,0 +1,131 @@
+<div class="filters">
+  <input type="text" placeholder="Search title..." [(ngModel)]="searchText">
+
+  <select [(ngModel)]="selectedStatus">
+    <option value="">All Status</option>
+    <option value="Open">Open</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+  </select>
+
+  <select [(ngModel)]="selectedPriority">
+    <option value="">All Priority</option>
+    <option value="High">High</option>
+    <option value="Medium">Medium</option>
+    <option value="Low">Low</option>
+  </select>
+
+  <!-- ✅ FIX: navigate to add issue page -->
+  <button (click)="goToAddIssue()">Add Issue</button>
+</div>
+
+
+<div class="issues-container">
+
+  <h2>All Issues</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Assignee</th>
+        <th>Deadline</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let issue of paginatedIssues">
+        <td>{{ issue.issueId }}</td>
+        <td>{{ issue.title }}</td>
+        <td>{{ issue.description }}</td>
+        <td>
+          <span class="badge" [ngClass]="issue.priority">{{ issue.priority }}</span>
+        </td>
+        <td>
+          <span class="status" [ngClass]="issue.status">{{ issue.status }}</span>
+        </td>
+
+        <!-- ✅ FIX: show user name instead of id -->
+        <td>{{ userMap[issue.assignedTo] || 'Unknown' }}</td>
+
+
+
+        <td [ngClass]="{'overdue': isOverdue(issue.deadline)}">
+          {{ issue.deadline | date:'yyyy-MM-dd' }}
+        </td>
+
+        <td class="actions">
+          <button (click)="openView(issue)">View</button>
+          <button (click)="openEdit(issue)">Edit</button>
+          <button (click)="openDelete(issue)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination">
+  <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+    Prev
+  </button>
+
+  <button 
+    *ngFor="let page of [].constructor(totalPages); let i = index"
+    (click)="changePage(i + 1)"
+    [class.active]="currentPage === i + 1">
+    {{ i + 1 }}
+  </button>
+
+  <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+</div>
+
+
+<!-- 🔥 VIEW POPUP -->
+<div class="modal" *ngIf="showEdit">
+  <div class="modal-content">
+    <h3>Edit Issue ✏️</h3>
+
+    <label>Title</label>
+    <input [(ngModel)]="selectedIssue.title" placeholder="Title">
+
+    <label>Description</label>
+    <textarea [(ngModel)]="selectedIssue.description" placeholder="Description"></textarea>
+
+    <label>Priority</label>
+    <select [(ngModel)]="selectedIssue.priority">
+      <option>High</option>
+      <option>Medium</option>
+      <option>Low</option>
+    </select>
+
+    <label>Status</label>
+    <select [(ngModel)]="selectedIssue.status">
+      <option>Open</option>
+      <option>In Progress</option>
+      <option>Completed</option>
+    </select>
+
+    <!-- ✅ Assignee dropdown from DB -->
+    <label>Assignee</label>
+    <select [(ngModel)]="selectedIssue.assignedTo">
+      <option *ngFor="let user of users" [value]="user.user_id">
+        {{ user.user_name }}
+      </option>
+    </select>
+
+    <label>Deadline</label>
+    <input type="date" [(ngModel)]="selectedIssue.deadline">
+
+    <div class="modal-actions">
+      <button class="btn edit" (click)="saveEdit()">Save</button>
+      <button class="btn delete" (click)="closePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
