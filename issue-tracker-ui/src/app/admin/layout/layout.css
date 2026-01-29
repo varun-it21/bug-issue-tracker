@@ -1,0 +1,145 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 190px;
+  background: #000000;
+  color: white;
+  padding: 20px;
+  transition: 0.3s ease;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+h3{
+  color: #ff6f61;
+  margin-left: 950px;
+}
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 12px 0;     
+  font-size: 15px;
+  line-height: normal;
+  line-height: 100px;
+}
+
+.sidebar a:hover {
+  color: #ff6f61;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar img {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  height: 60px;
+  background: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.page {
+  padding: 20px;
+  background: #f8fafc;
+  flex: 1;
+}
+
+.user-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-menu img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  width: 150px;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.dropdown a:hover {
+  background: #f1f5f9;
+}
+
+span {
+  color: white;
+  font-weight: bold;
+}
+
+span:hover{
+  color: #ff6f61;
+}
+
+.sidebar.closed {
+  width: 65px;
+  padding: 20px 10px;
+}
+
+.sidebar.closed span {
+  display: none;
+}
+
+.sidebar.closed h2 {
+  display: none;
+}
+
+.sidebar.closed a {
+  justify-content: center;
+}
+
+.sidebar.closed img {
+  margin: auto;  
+    margin: 40px 0;     
+
+}
+
+.menu-btn {
+  font-size: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin-right: 10px;
+}
