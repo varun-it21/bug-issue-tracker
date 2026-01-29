@@ -14,8 +14,6 @@
     <option value="Medium">Medium</option>
     <option value="Low">Low</option>
   </select>
-
-  <!-- ✅ FIX: navigate to add issue page -->
   <button (click)="goToAddIssue()">Add Issue</button>
 </div>
 
@@ -49,8 +47,6 @@
         <td>
           <span class="status" [ngClass]="issue.status">{{ issue.status }}</span>
         </td>
-
-        <!-- ✅ FIX: show user name instead of id -->
         <td>{{ userMap[issue.assignedTo] || 'Unknown' }}</td>
 
 
@@ -86,8 +82,6 @@
   </button>
 </div>
 
-
-<!-- 🔥 VIEW POPUP -->
 <div class="modal" *ngIf="showEdit">
   <div class="modal-content">
     <h3>Edit Issue ✏️</h3>
@@ -112,7 +106,6 @@
       <option>Completed</option>
     </select>
 
-    <!-- ✅ Assignee dropdown from DB -->
     <label>Assignee</label>
     <select [(ngModel)]="selectedIssue.assignedTo">
       <option *ngFor="let user of users" [value]="user.user_id">
@@ -125,6 +118,39 @@
 
     <div class="modal-actions">
       <button class="btn edit" (click)="saveEdit()">Save</button>
+      <button class="btn delete" (click)="closePopup()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showView">
+  <div class="modal-content">
+    <h3>View Issue 👁️</h3>
+
+    <p><b>ID:</b> {{ selectedIssue.issueId }}</p>
+    <p><b>Title:</b> {{ selectedIssue.title }}</p>
+    <p><b>Description:</b> {{ selectedIssue.description }}</p>
+    <p><b>Priority:</b> {{ selectedIssue.priority }}</p>
+    <p><b>Status:</b> {{ selectedIssue.status }}</p>
+    <p><b>Assignee:</b> {{ userMap[selectedIssue.assignedTo] }}</p>
+    <p><b>Deadline:</b> {{ selectedIssue.deadline | date:'yyyy-MM-dd' }}</p>
+
+    <div class="modal-actions">
+      <button class="btn delete" (click)="closePopup()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ DELETE MODAL -->
+<div class="modal" *ngIf="showDelete">
+  <div class="modal-content">
+    <h3>Delete Issue 🗑️</h3>
+    <p>Are you sure you want to delete this issue?</p>
+
+    <p><b>{{ selectedIssue.title }}</b></p>
+
+    <div class="modal-actions">
+      <button class="btn edit" (click)="confirmDelete()">Yes, Delete</button>
       <button class="btn delete" (click)="closePopup()">Cancel</button>
     </div>
   </div>

@@ -13,4 +13,16 @@ export class UserService {
   getUsers() {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  addUser(user: any) {
+    return this.http.post(this.apiUrl, user);
+  }
+
+  updateUser(id: number, user: any) {
+  return this.http.put(`http://localhost:5165/api/Users/${id}`, user);
+}
+
+deleteUser(id: number) {
+  return this.http.delete(`http://localhost:5165/api/Users/${id}`);
+}
 }

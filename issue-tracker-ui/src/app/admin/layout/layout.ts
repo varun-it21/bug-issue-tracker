@@ -12,12 +12,16 @@ import { NgIf } from '@angular/common';
 export class AdminLayout {
 
   showMenu = false;
+  isSidebarOpen = true;  
 
   constructor(private router: Router) {}
 
-  
   toggleMenu() {
     this.showMenu = !this.showMenu;
+  }
+
+  toggleSidebar() {      
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 
   viewProfile() {

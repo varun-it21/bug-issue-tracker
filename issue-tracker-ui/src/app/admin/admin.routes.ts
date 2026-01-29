@@ -13,7 +13,7 @@ export const adminRoutes: Routes = [
       { path: '', component: AdminDashboard },
       { path: 'issues', component: Issues },
       { path: 'add-issues', component: AddIssues},
-      { path: 'add-users', component: AddUsers}
+      { path: 'add-users', component: AddUsers},
     ]
   }
 ];

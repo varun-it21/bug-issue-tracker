@@ -18,6 +18,11 @@ h2 {
   color: #ff6f61;
 }
 
+form{
+    height: 600px; 
+    line-height: 30px;
+}
+
 .form-group {
   margin-bottom: 12px;
 }

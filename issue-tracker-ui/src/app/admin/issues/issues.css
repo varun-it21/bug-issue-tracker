@@ -50,10 +50,7 @@ tr:hover {
   gap: 10px;
   align-items: center;
   margin-bottom: 15px;
-  background: white;
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  flex-wrap: wrap;
 }
 
 .filters input,
@@ -62,21 +59,27 @@ tr:hover {
   border-radius: 6px;
   border: 1px solid #cbd5e1;
   font-size: 14px;
+  outline: none;
 }
 
+.filters input:focus,
+.filters select:focus {
+  border-color: #2563eb;
+}
+
+/* Add Issue Button */
 .filters button {
-  margin-left: 650px;
-  padding: 8px 14px;
-  background: #ff6f61;
+  background: #16a34a;
   color: white;
   border: none;
+  padding: 9px 16px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-weight: 500;
 }
 
 .filters button:hover {
-  background: #1d4ed8;
+  background: #15803d;
 }
 
 .actions {
@@ -183,4 +186,227 @@ tr:hover {
 .pagination button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* ===== Issues Table ===== */
+
+.issues-container h2 {
+  margin-bottom: 10px;
+  color: #ff6f61;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+th, td {
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+thead {
+  background: #f1f5f9;
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* ===== Priority Badge ===== */
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.High {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.Medium {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.Low {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* ===== Status ===== */
+
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.Open {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.In\ Progress {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+.Completed {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* ===== Action Buttons ===== */
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.actions button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* View */
+.actions button:nth-child(1) {
+  background: #2563eb;
+  color: white;
+}
+
+.actions button:nth-child(1):hover {
+  background: #1d4ed8;
+}
+
+/* Edit */
+.actions button:nth-child(2) {
+  background: #f59e0b;
+  color: white;
+}
+
+.actions button:nth-child(2):hover {
+  background: #d97706;
+}
+
+/* Delete */
+.actions button:nth-child(3) {
+  background: #dc2626;
+  color: white;
+}
+
+.actions button:nth-child(3):hover {
+  background: #b91c1c;
+}
+
+/* Overdue deadline */
+.overdue {
+  color: red;
+  font-weight: bold;
+}
+
+/* ===== Pagination ===== */
+
+.pagination {
+  margin-top: 15px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.pagination button:hover:not(.active) {
+  background: #f1f5f9;
+}
+
+/* ===== Modal ===== */
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+  color: #ff6f61;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
+.modal-content p {
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+/* Modal Buttons */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions .edit {
+  background: #2563eb;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+}
+
+.modal-actions .delete {
+  background: #dc2626;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
 }
