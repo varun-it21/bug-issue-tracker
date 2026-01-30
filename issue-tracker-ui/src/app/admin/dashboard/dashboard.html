@@ -1,0 +1,63 @@
+<div class="dashboard">
+  <div class="cards">
+
+    <div class="card">
+      <h3>Total Issues</h3>
+      <h1>{{ totalIssues }}</h1>
+    </div>
+
+    <div class="card">
+      <h3>Status</h3>
+      <p>Open: {{ status.open }}</p>
+      <p>In Progress: {{ status.inProgress }}</p>
+      <p>Completed: {{ status.completed }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Priority</h3>
+      <p>High: {{ priority.high }}</p>
+      <p>Medium: {{ priority.medium }}</p>
+      <p>Low: {{ priority.low }}</p>
+    </div>
+
+  </div>
+
+  <div class="issues-table">
+
+    <h2 style="color: red;">High Priorities List ⚠️</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Priority</th>
+          <th>Status</th>
+          <th>Assignee</th>
+        </tr>
+      </thead>
+
+      <tbody>
+  <tr *ngFor="let issue of highPriorityIssues">
+    <td>{{ issue.issueId }}</td>
+    <td>{{ issue.title }}</td>
+    <td>{{ issue.description }}</td>
+    <td>
+      <span class="badge" [ngClass]="issue.priority">
+        {{ issue.priority }}
+      </span>
+    </td>
+    <td>
+      <span class="status" [ngClass]="issue.status">
+        {{ issue.status }}
+      </span>
+    </td>
+    <td>{{ issue.assignedTo }}</td>
+  </tr>
+</tbody>
+    </table>
+
+  </div>
+
+</div>

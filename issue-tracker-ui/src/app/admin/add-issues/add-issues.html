@@ -1,0 +1,45 @@
+<div class="add-issue-wrapper">
+
+  <div class="add-issue-container">
+   <h2>Add Issue</h2>
+
+<form (ngSubmit)="addIssue()">
+
+  <label>Title *</label>
+  <input type="text" [(ngModel)]="issue.title" name="title" required />
+
+  <label>Description</label>
+  <textarea [(ngModel)]="issue.description" name="description"></textarea>
+
+  <label>Priority *</label>
+  <select [(ngModel)]="issue.priority" name="priority">
+    <option value="High">High</option>
+    <option value="Medium">Medium</option>
+    <option value="Low">Low</option>
+  </select>
+
+  <label>Status *</label>
+  <select [(ngModel)]="issue.status" name="status">
+    <option value="Open">Open</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+  </select>
+
+  <label>Assign To</label>
+<select [(ngModel)]="issue.assignedTo" name="assignedTo">
+  <option *ngFor="let user of users" [value]="user.user_id">
+    {{ user.user_name }}
+  </option>
+</select>
+
+  <label>Deadline</label>
+  <input type="date" [(ngModel)]="issue.deadline" name="deadline" />
+
+  <br><br>
+  <button type="submit">Add Issue</button>
+
+</form>
+
+  </div>
+
+</div>
