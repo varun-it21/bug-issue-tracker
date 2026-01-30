@@ -17,7 +17,7 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let user of users; trackBy: trackByUserId">
+    <tr *ngFor="let user of paginatedUsers; trackBy: trackByUserId">
       <td>{{ user.userId }}</td>
       <td>{{ user.user_name }}</td>
       <td>{{ user.user_email }}</td>
@@ -28,11 +28,28 @@
       <td>
         <button class="btn-view" (click)="openView(user)">View</button>
         <button class="btn-edit" (click)="openEdit(user)">Edit</button>
-        <button class="btn-delete" (click)="openDelete(user)">Delete</button>
       </td>
     </tr>
   </tbody>
 </table>
+<div class="pagination">
+
+  <button (click)="prevPage()" [disabled]="currentPage === 1">
+    Prev
+  </button>
+
+  <button 
+    *ngFor="let page of pageNumbers" 
+    (click)="goToPage(page)"
+    [class.active]="currentPage === page">
+    {{ page }}
+  </button>
+
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    Next
+  </button>
+
+</div>
 
 
 <div class="modal" *ngIf="showAddUser">
@@ -67,11 +84,10 @@
   </div>
 </div>
 
-<!-- ================= VIEW USER POPUP ================= -->
 <div class="modal" *ngIf="showView">
   <div class="modal-content">
     <h3>View User 👁️</h3>
-    <p><b>ID:</b> {{ this.selectedUser.userId}}</p>
+    <p><b>ID:</b> {{ selectedUser.userId }}</p>
     <p><b>Name:</b> {{ selectedUser.user_name }}</p>
     <p><b>Email:</b> {{ selectedUser.user_email }}</p>
     <p><b>Status:</b> {{ selectedUser.is_active ? 'Active' : 'Inactive' }}</p>
@@ -79,7 +95,6 @@
   </div>
 </div>
 
-<!-- ================= EDIT USER POPUP ================= -->
 <div class="modal" *ngIf="showEdit">
   <div class="modal-content">
     <h3>Edit User ✏️</h3>
@@ -99,15 +114,3 @@
   </div>
 </div>
 
-<!-- ================= DELETE USER POPUP ================= -->
-<div class="modal" *ngIf="showDelete">
-  <div class="modal-content">
-    <h3>Delete User 🗑️</h3>
-    <p>Are you sure you want to delete <b>{{ selectedUser.user_name }}</b>?</p>
-
-    <div class="modal-actions">
-      <button (click)="confirmDelete()">Yes</button>
-      <button (click)="closePopup()">Cancel</button>
-    </div>
-  </div>
-</div>

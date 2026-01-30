@@ -67,7 +67,6 @@ tr:hover {
   border-color: #2563eb;
 }
 
-/* Add Issue Button */
 .filters button {
   background: #16a34a;
   color: white;
@@ -188,7 +187,6 @@ tr:hover {
   cursor: not-allowed;
 }
 
-/* ===== Issues Table ===== */
 
 .issues-container h2 {
   margin-bottom: 10px;
@@ -219,8 +217,6 @@ tbody tr:hover {
   background: #f8fafc;
 }
 
-/* ===== Priority Badge ===== */
-
 .badge {
   padding: 4px 10px;
   border-radius: 20px;
@@ -242,8 +238,6 @@ tbody tr:hover {
   background: #dcfce7;
   color: #16a34a;
 }
-
-/* ===== Status ===== */
 
 .status {
   padding: 4px 10px;
@@ -267,8 +261,6 @@ tbody tr:hover {
   color: #16a34a;
 }
 
-/* ===== Action Buttons ===== */
-
 .actions {
   display: flex;
   gap: 6px;
@@ -283,7 +275,6 @@ tbody tr:hover {
   font-weight: 500;
 }
 
-/* View */
 .actions button:nth-child(1) {
   background: #2563eb;
   color: white;
@@ -293,7 +284,6 @@ tbody tr:hover {
   background: #1d4ed8;
 }
 
-/* Edit */
 .actions button:nth-child(2) {
   background: #f59e0b;
   color: white;
@@ -303,7 +293,6 @@ tbody tr:hover {
   background: #d97706;
 }
 
-/* Delete */
 .actions button:nth-child(3) {
   background: #dc2626;
   color: white;
@@ -313,13 +302,10 @@ tbody tr:hover {
   background: #b91c1c;
 }
 
-/* Overdue deadline */
 .overdue {
   color: red;
   font-weight: bold;
 }
-
-/* ===== Pagination ===== */
 
 .pagination {
   margin-top: 15px;
@@ -345,8 +331,6 @@ tbody tr:hover {
 .pagination button:hover:not(.active) {
   background: #f1f5f9;
 }
-
-/* ===== Modal ===== */
 
 .modal {
   position: fixed;
@@ -388,7 +372,6 @@ tbody tr:hover {
   margin: 6px 0;
 }
 
-/* Modal Buttons */
 .modal-actions {
   display: flex;
   justify-content: flex-end;

@@ -23,6 +23,8 @@ export class AddUsers implements OnInit {
   showEdit = false;
   showDelete = false;
   selectedUser: any = null;
+  currentPage = 1;
+pageSize = 5;
   newUser = {
     user_name: '',
     user_email: '',
@@ -102,27 +104,6 @@ saveEdit() {
     });
 }
 
-
-  openDelete(user: any) {
-  this.selectedUser = user;
-  this.showDelete = true;
-}
-
-confirmDelete() {
-  console.log("Deleting user:", this.selectedUser.userId);
-
-  this.userService.deleteUser(this.selectedUser.userId)
-    .subscribe({
-      next: () => {
-        alert("User deleted successfully ✅");
-        this.loadUsers();
-        this.closePopup();
-      },
-      error: err => console.error("Delete error:", err)
-    });
-}
-
-
   closePopup() {
     this.showView = false;
     this.showEdit = false;
@@ -131,12 +112,47 @@ confirmDelete() {
   }
 
   trackByUserId(index: number, user: any) {
-  return user.user_id;
+  return user.userId;
 }
 
 get filteredUsers() {
   return this.users.filter(u =>
-    u.user_name.toLowerCase().includes(this.searchText.toLowerCase())
+    (u.user_name || '').toLowerCase().includes(this.searchText.toLowerCase())
   );
 }
+
+
+get paginatedUsers() {
+  const start = (this.currentPage - 1) * this.pageSize;
+  const end = start + this.pageSize;
+  return this.filteredUsers.slice(start, end);
+}
+
+get pageNumbers() {
+  return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+}
+
+get totalPages() {
+  return Math.ceil(this.filteredUsers.length / this.pageSize);
+}
+
+goToPage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+  }
+}
+
+nextPage() {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
+  }
+}
+
+prevPage() {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
+
+
 }

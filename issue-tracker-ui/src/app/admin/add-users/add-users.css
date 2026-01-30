@@ -29,7 +29,6 @@ button {
   font-weight: bold;
 }
 
-/* 🔥 Modal Popup */
 .modal {
   position: fixed;
   top: 0;
@@ -62,24 +61,22 @@ button {
   margin-top: 10px;
 }
 
-/* Action Buttons Colors */
-
 .btn-view {
-  background-color: #3498db; /* Blue */
+  background-color: #3498db; 
   color: white;
   border: none;
   border-radius: 4px;
 }
 
 .btn-edit {
-  background-color: #f39c12; /* Orange */
+  background-color: #f39c12; 
   color: white;
   border: none;
   border-radius: 4px;
 }
 
 .btn-delete {
-  background-color: #e74c3c; /* Red */
+  background-color: #e74c3c; 
   color: white;
   border: none;
   border-radius: 4px;
@@ -105,3 +102,46 @@ button {
   background-color: #c0392b;
 }
 
+.filters input{
+  width: 400px;
+  height: 30px;
+}
+
+.pagination {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-family: Arial, sans-serif;
+}
+
+.pagination button {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled):not(.active) {
+  background: #f1f5f9;
+}
+
+.pagination button.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  font-weight: 600;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

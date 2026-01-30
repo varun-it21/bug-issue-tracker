@@ -19,7 +19,7 @@
 
 h3{
   color: #ff6f61;
-  margin-left: 950px;
+  float: inline-end;
 }
 .sidebar a {
   display: flex;

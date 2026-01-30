@@ -29,4 +29,12 @@ export class IssueService {
   );
 }
 
+getComments(issueId: number) {
+  return this.http.get<any[]>(`http://localhost:5165/api/issues/${issueId}/comments`);
+}
+
+addComment(data: any) {
+  return this.http.post(`http://localhost:5165/api/issues/comments`, data);
+}
+
 }
