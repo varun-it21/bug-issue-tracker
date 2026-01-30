@@ -57,13 +57,13 @@
     <h3>Add User 👤</h3>
 
     <label>Name</label>
-    <input [(ngModel)]="newUser.user_name">
+    <input [(ngModel)]="newUser.user_name" required>
 
     <label>Email</label>
-    <input [(ngModel)]="newUser.user_email">
+    <input [(ngModel)]="newUser.user_email" required>
 
     <label>Password</label>
-    <input type="password" [(ngModel)]="newUser.password">
+    <input type="password" [(ngModel)]="newUser.password" required>
 
     <label>Role</label>
     <select [(ngModel)]="newUser.role_id">

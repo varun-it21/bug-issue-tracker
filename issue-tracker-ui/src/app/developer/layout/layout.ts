@@ -1,13 +1,38 @@
 import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { NgIf } from '@angular/common';
+
 
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [], 
+  imports: [RouterOutlet, RouterLink, NgIf], 
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
 export class Layout {
 
+    showMenu = false;
+  isSidebarOpen = true;  
+
+  constructor(private router: Router) {}
+
+  toggleMenu() {
+    this.showMenu = !this.showMenu;
+  }
+
+  toggleSidebar() {      
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  viewProfile() {
+    alert('Profile page coming soon 👤');
+    this.showMenu = false;
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/']);
+  }
 }

@@ -1,0 +1,104 @@
+.my-issues {
+  background: #f8fafc;
+  padding: 20px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.my-issues h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Table Container */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Header */
+thead {
+  background: #f1f5f9;
+}
+
+th {
+  padding: 14px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  text-align: left;
+}
+
+/* Body */
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+  background: #f9fafb;
+  transition: 0.2s;
+}
+
+/* Priority Badge */
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Priority Colors */
+.HIGH {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.MEDIUM {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.LOW {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Status Style */
+.status {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Status Colors */
+.OPEN {
+  color: #2563eb;
+}
+
+.IN_PROGRESS {
+  color: #f59e0b;
+}
+
+.COMPLETED {
+  color: #16a34a;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+}

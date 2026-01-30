@@ -133,28 +133,38 @@
 }
 
   saveEdit() {
-  const id = this.selectedIssue.issueId || this.selectedIssue.issue_id;
+  const id = this.selectedIssue.issueId;
 
-  console.log("Updating issue ID:", id); // debug
+  const updatedIssue = {
+    issueId: id,
+    title: this.selectedIssue.title,
+    description: this.selectedIssue.description,
+    priority: this.selectedIssue.priority,
+    status: this.selectedIssue.status,
+    assignedTo: this.selectedIssue.assignedTo,
+    deadline: this.selectedIssue.deadline
+  };
 
-  this.issueService.updateIssue(id, this.selectedIssue)
-    .subscribe({
-      next: () => {
-        alert('Issue updated successfully ✅');
-        this.loadUsersAndIssues();
-        this.closePopup();
-      },
-      error: (err) => {
-        console.error("Update error:", err);
-        alert('Failed to update issue ❌');
-      }
-    });
+  console.log("Sending update:", updatedIssue);
+
+  this.issueService.updateIssue(id, updatedIssue).subscribe({
+    next: () => {
+      alert('Issue updated successfully ✅');
+      this.loadUsersAndIssues();
+      this.closePopup();
+    },
+    error: (err) => {
+      console.error("Update error:", err);
+      alert('Failed to update issue ❌');
+    }
+  });
 }
+
 
     confirmDelete() {
   const id = this.selectedIssue.issueId || this.selectedIssue.issue_id;
 
-  console.log("Deleting issue ID:", id); // debug
+  console.log("Deleting issue ID:", id); 
 
   this.issueService.deleteIssue(id).subscribe({
     next: () => {

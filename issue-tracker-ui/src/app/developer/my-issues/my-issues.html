@@ -1,0 +1,35 @@
+<div class="my-issues">
+
+  <h2>My Issues 👨‍💻</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Assignee</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let issue of myIssues">
+        <td>{{ issue.issueId }}</td>
+        <td>{{ issue.title }}</td>
+        <td>
+          <span class="badge" [ngClass]="issue.priority">
+            {{ issue.priority }}
+          </span>
+        </td>
+        <td>
+          <span class="status" [ngClass]="issue.status">
+            {{ issue.status }}
+          </span>
+        </td>
+        <td>{{ issue.assignedTo }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

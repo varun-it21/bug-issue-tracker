@@ -72,14 +72,27 @@ loadUsers() {
     };
   }
 
-  addUser() {
-    this.userService.addUser(this.newUser).subscribe(() => {
+ addUser() {
+
+  if (!this.newUser.user_name || !this.newUser.user_email || !this.newUser.password) {
+    alert("Please fill all required fields ❗");
+    return;
+  }
+
+  console.log("Sending user:", this.newUser);
+
+  this.userService.addUser(this.newUser).subscribe({
+    next: res => {
       alert("User added successfully ✅");
       this.loadUsers();
       this.closeAddUser();
-    });
-  }
-
+    },
+    error: err => {
+      console.error("API Error:", err.error);
+      alert("Failed to add user ❌");
+    }
+  });
+}
   openView(user: any) {
     this.selectedUser = user;
     this.showView = true;

@@ -1,8 +1,8 @@
-.issues-container {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+
+.issues-container thead{
+  background-color: black;
+  color: white;
 }
 
 h2 {
@@ -197,7 +197,6 @@ table {
   width: 100%;
   border-collapse: collapse;
   background: white;
-  border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
