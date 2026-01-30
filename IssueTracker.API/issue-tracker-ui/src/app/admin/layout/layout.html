@@ -1,0 +1,47 @@
+<div class="layout">
+
+  <div class="sidebar" [class.closed]="!isSidebarOpen">
+    <h2 style="color: #ff6f61;">Admin Panel</h2>
+
+    <a routerLink="/admin">
+      <img src="/dashboard.png" alt=""> <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/admin/issues">
+      <img src="/issue.png" alt=""> <span>Issues</span>
+    </a>
+
+    <a routerLink="/admin/add-issues">
+      <img src="/add-folder.png" alt=""> <span>Add Issues</span>
+    </a>
+
+    <a routerLink="/admin/add-users">
+      <img src="/group.png" alt=""> <span>Users</span>
+    </a>
+  </div>
+
+  <div class="content">
+
+    <div class="navbar">
+      <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+
+      <h3>Welcome Admin 👋!</h3>
+
+      <div class="user-menu">
+        <img src="/user.png" alt="User" (click)="toggleMenu()" />
+
+        <div class="dropdown" *ngIf="showMenu">
+          <a (click)="viewProfile()">👤 View Profile</a>
+          <a (click)="logout()">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+
+</div>
+

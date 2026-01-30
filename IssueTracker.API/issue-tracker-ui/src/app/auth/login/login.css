@@ -1,0 +1,93 @@
+.main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+
+.left {
+  width: 50%;
+  background: linear-gradient(135deg, #ff9a86, #ff6f61);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left img {
+  max-width: 75%;
+  max-height: 75%;
+  object-fit: contain;
+}
+
+
+.right {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.card {
+  width: 350px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card h2 {
+  text-align: center;
+  color: #333;
+}
+
+.card p {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #444;
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #ff6f61;
+  box-shadow: 0 0 0 2px rgba(255, 111, 97, 0.15);
+}
+
+.card button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  background: #ff6f61;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.card button:hover {
+  background: #ff4f3a;
+}
