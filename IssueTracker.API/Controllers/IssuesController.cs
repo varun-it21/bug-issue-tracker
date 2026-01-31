@@ -19,27 +19,17 @@ namespace IssueTracker.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIssues()
         {
-            try
-            {
-                var issues = await _context.issues.ToListAsync();
-                return Ok(issues);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.ToString());
-            }
+            var issues = await _context.issues.ToListAsync();
+            return Ok(issues);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIssue(int id, Issue issue)
+        public async Task<IActionResult> UpdateIssue(int id, [FromBody] Issue issue)
         {
-            if (id != issue.IssueId)
-                return BadRequest("ID mismatch");
-
             var existingIssue = await _context.issues.FindAsync(id);
 
             if (existingIssue == null)
-                return NotFound();
+                return NotFound("Issue not found");
 
             existingIssue.Title = issue.Title;
             existingIssue.Description = issue.Description;
@@ -48,10 +38,14 @@ namespace IssueTracker.API.Controllers
             existingIssue.AssignedTo = issue.AssignedTo;
             existingIssue.Deadline = issue.Deadline;
 
+            existingIssue.UpdatedAt = DateTime.Now;
+            existingIssue.UpdatedBy = 1; 
+
             await _context.SaveChangesAsync();
 
             return Ok(existingIssue);
         }
+
 
 
         [HttpDelete("{id}")]
@@ -72,8 +66,11 @@ namespace IssueTracker.API.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateIssue(Issue issue)
+        public async Task<IActionResult> CreateIssue([FromBody] Issue issue)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             issue.CreatedOn = DateTime.Now;
             issue.UpdatedAt = DateTime.Now;
 
@@ -92,6 +89,16 @@ namespace IssueTracker.API.Controllers
                 return NotFound("Issue not found");
 
             return Ok(issue);
+        }
+
+        [HttpGet("assigned/{userId}")]
+        public async Task<IActionResult> GetIssuesByUser(int userId)
+        {
+            var issues = await _context.issues
+                .Where(i => i.AssignedTo == userId)
+                .ToListAsync();
+
+            return Ok(issues);
         }
 
     }

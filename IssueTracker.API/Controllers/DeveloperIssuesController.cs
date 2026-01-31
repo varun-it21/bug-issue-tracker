@@ -13,25 +13,25 @@ public class DeveloperController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("dashboard/{username}")]
-    public async Task<IActionResult> GetDashboard(string username)
+    [HttpGet("dashboard/{userId}")]
+    public async Task<IActionResult> GetDashboard(int userId)
     {
-        var totalIssues = await _context.Issues
-            .CountAsync(i => i.AssignedTo == username);
-        var priorityCounts = await _context.Issues
-            .Where(i => i.AssignedTo == username)
+        var totalIssues = await _context.issues
+            .CountAsync(i => i.AssignedTo == userId);
+        var priorityCounts = await _context.issues
+            .Where(i => i.AssignedTo == userId)
             .GroupBy(i => i.Priority)
             .Select(g => new { Priority = g.Key, Count = g.Count() })
             .ToListAsync();
-        var statusCounts = await _context.Issues
-            .Where(i => i.AssignedTo == username)
+        var statusCounts = await _context.issues
+            .Where(i => i.AssignedTo == userId)
             .GroupBy(i => i.Status)
             .Select(g => new { Status = g.Key, Count = g.Count() })
             .ToListAsync();
 
         // High priority issues list
-        var highPriorityIssues = await _context.Issues
-            .Where(i => i.AssignedTo == username && i.Priority == "HIGH")
+        var highPriorityIssues = await _context.issues
+            .Where(i => i.AssignedTo == userId && i.Priority!.ToUpper() == "HIGH")
             .ToListAsync();
 
         return Ok(new
