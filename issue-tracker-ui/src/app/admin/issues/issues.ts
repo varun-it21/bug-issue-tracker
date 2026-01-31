@@ -46,37 +46,41 @@
   ngOnInit() {
     this.loadUsersAndIssues();
   }
+
   loadUsersAndIssues() {
-    this.userService.getUsers().subscribe(users => {
-      this.users = users;
+  this.userService.getUsers().subscribe(users => {
 
-      this.userMap = {};
-      for (let u of this.users) {
-        this.userMap[u.user_id] = u.user_name;
-      }
+    console.log("USERS API 👉", users);   // ✅ ADD THIS
 
-      this.issueService.getIssues().subscribe(data => {
-        this.issues = [...data];
-        console.log("Issues Loaded:", this.issues);
+    this.users = users;
 
-        this.cdr.detectChanges(); 
-      });
+    this.userMap = {};
+    for (let u of this.users) {
+  this.userMap[u.userId] = u.user_name;
+}
+
+
+    console.log("USER MAP 👉", this.userMap);   // ✅ ADD THIS
+
+    this.issueService.getIssues().subscribe(data => {
+
+      console.log("ISSUES API 👉", data);   // ✅ ADD THIS
+
+      this.issues = [...data];
+      this.cdr.detectChanges();
     });
-  }
+  });
+}
 
-    isOverdue(date: string | null) {
-    if (!date) return false; 
-    return new Date(date) < new Date();
-  }
 
   loadUsers() {
     this.userService.getUsers().subscribe(data => {
       this.users = data;
 
       this.userMap = {};
-      for (let u of this.users) {
-        this.userMap[u.user_id] = u.user_name; 
-      }
+for (let u of this.users) {
+  this.userMap[u.userId] = u.user_name;
+}
 
       console.log('User Map:', this.userMap);
     });
@@ -88,13 +92,17 @@
     });
   }
 
-    get filteredIssues() {
-      return this.issues.filter(issue =>
-        issue.title.toLowerCase().includes(this.searchText.toLowerCase()) &&
-        (this.selectedStatus === '' || issue.status === this.selectedStatus) &&
-        (this.selectedPriority === '' || issue.priority === this.selectedPriority)
-      );
-    }
+   get filteredIssues() {
+  return this.issues.filter(issue =>
+    (issue.title ?? '')
+      .toLowerCase()
+      .includes(this.searchText.toLowerCase()) &&
+    (this.selectedStatus === '' ||
+      (issue.status ?? '') === this.selectedStatus) &&
+    (this.selectedPriority === '' ||
+      (issue.priority ?? '') === this.selectedPriority)
+  );
+}
 
     get paginatedIssues() {
       const start = (this.currentPage - 1) * this.pageSize;
@@ -119,12 +127,13 @@
     this.loadComments(issue.issueId); 
   }
 
-   openEdit(issue: any) {
-  console.log("Edit Issue:", issue); 
-  this.selectedIssue = { ...issue };
+openEdit(issue: any) {
+  this.selectedIssue = {
+    ...issue,
+    assignedTo: issue.assignedTo ?? issue.assigned_to ?? issue.AssignedTo
+  };
   this.showEdit = true;
 }
-
 
     openDelete(issue: any) {
   console.log("Delete Issue:", issue);
@@ -133,19 +142,33 @@
 }
 
   saveEdit() {
+
+      console.log('saveEdit() CALLED');
+  if (!this.selectedIssue.title || this.selectedIssue.title.trim() === '') {
+    alert('Title is required');
+    return;
+  }
+  if (!this.selectedIssue.status || this.selectedIssue.status.trim() === '') {
+    alert('Status is required');
+    return;
+  }
+  if (!this.selectedIssue.description || this.selectedIssue.description.trim() === '') {
+    alert('Description is required');
+    return;
+  }
+
   const id = this.selectedIssue.issueId;
 
   const updatedIssue = {
-    issueId: id,
     title: this.selectedIssue.title,
     description: this.selectedIssue.description,
     priority: this.selectedIssue.priority,
-    status: this.selectedIssue.status,
+    status: this.selectedIssue.status,  
     assignedTo: this.selectedIssue.assignedTo,
     deadline: this.selectedIssue.deadline
   };
 
-  console.log("Sending update:", updatedIssue);
+  console.log('PUT PAYLOAD 👉', updatedIssue);
 
   this.issueService.updateIssue(id, updatedIssue).subscribe({
     next: () => {
@@ -154,11 +177,12 @@
       this.closePopup();
     },
     error: (err) => {
-      console.error("Update error:", err);
+      console.error('Update error:', err);
       alert('Failed to update issue ❌');
     }
   });
 }
+
 
 
     confirmDelete() {
@@ -206,4 +230,9 @@
       this.comments = res;
     });
   }
+
+  isOverdue(date: string | null) {
+  if (!date) return false;
+  return new Date(date) < new Date();
+}
   }

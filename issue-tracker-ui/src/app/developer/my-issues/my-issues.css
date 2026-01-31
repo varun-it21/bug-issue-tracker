@@ -48,7 +48,6 @@ tr:hover {
   transition: 0.2s;
 }
 
-/* Priority Badge */
 .badge {
   padding: 4px 10px;
   border-radius: 20px;
@@ -57,48 +56,36 @@ tr:hover {
   display: inline-block;
 }
 
-/* Priority Colors */
-.HIGH {
+.High {
   background: #fee2e2;
   color: #dc2626;
 }
 
-.MEDIUM {
+.Medium {
   background: #fef3c7;
   color: #d97706;
 }
 
-.LOW {
+.Low {
   background: #dcfce7;
   color: #16a34a;
 }
 
-/* Status Style */
 .status {
   font-weight: 600;
   font-size: 13px;
 }
 
-/* Status Colors */
-.OPEN {
+.Open {
   color: #2563eb;
 }
 
-.IN_PROGRESS {
+.In-progress {
   color: #f59e0b;
 }
 
-.COMPLETED {
+.Completed {
   color: #16a34a;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  table {
-    font-size: 12px;
-  }
 
-  th, td {
-    padding: 10px;
-  }
-}

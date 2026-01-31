@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IssueService } from '../../services/issue.service';
 import { UserService } from '../../services/user.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-add-issues',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule,NgFor],
   templateUrl: './add-issues.html',
   styleUrl: './add-issues.css',
 })
@@ -21,7 +22,7 @@ export class AddIssues implements OnInit {
   description: '',
   priority: 'High',
   status: 'Open',
-  assignedTo: 0,   // will be set from dropdown
+  assignedTo: null,   
   deadline: '',
   createdBy: 1
 };
@@ -36,29 +37,46 @@ export class AddIssues implements OnInit {
   this.loadUsers();
 }
 
-  loadUsers() {
-  this.userService.getUsers().subscribe(data => {
-    this.users = data;
-
-    // ✅ auto select first user (avoid FK error)
-    if (this.users.length > 0) {
-      this.issue.assignedTo = this.users[0].id;
+loadUsers() {
+  this.userService.getUsers().subscribe({
+    next: (data) => {
+      console.log('ADD USERS API 👉', data);
+      this.users = data;
+    },
+    error: (err) => {
+      console.error('ADD USERS ERROR ❌', err);
     }
   });
 }
 
-  addIssue() {
-  console.log('Issue object:', this.issue);
+ addIssue() {
+
+ if (!this.issue.title || this.issue.title.trim() === '') {
+    alert('Issue title is required');
+    return;
+  }
+
+  if (this.issue.assignedTo === null) {
+  alert('Please select a valid user');
+  return;
+}
+
+if (this.issue.assignedTo === null || this.issue.assignedTo === undefined) {
+  alert('Please select a user');
+  return;
+}
+
+  console.log('FINAL PAYLOAD:', this.issue);
 
   this.issueService.addIssue(this.issue).subscribe({
-    next: (res) => {
+    next: () => {
       alert('Issue added successfully ✅');
       this.router.navigate(['/admin/issues']);
     },
     error: (err) => {
-      console.error('API ERROR:', err);
-      alert('Failed to add issue ❌');
+      console.error('Validation errors:', err.error?.errors);
     }
   });
 }
+
 }

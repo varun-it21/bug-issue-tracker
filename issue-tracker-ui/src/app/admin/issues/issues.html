@@ -4,7 +4,7 @@
   <select [(ngModel)]="selectedStatus">
     <option value="">All Status</option>
     <option value="Open">Open</option>
-    <option value="In Progress">In Progress</option>
+    <option value="InProgress">In Progress</option>
     <option value="Completed">Completed</option>
   </select>
 
@@ -70,9 +70,7 @@
     Prev
   </button>
 
-  <button 
-    *ngFor="let page of [].constructor(totalPages); let i = index"
-    (click)="changePage(i + 1)"
+  <button *ngFor="let page of [].constructor(totalPages); let i = index" (click)="changePage(i + 1)"
     [class.active]="currentPage === i + 1">
     {{ i + 1 }}
   </button>
@@ -94,8 +92,6 @@
     <p><b>Assignee:</b> {{ userMap[selectedIssue.assignedTo] }}</p>
     <p><b>Deadline:</b> {{ selectedIssue.deadline | date:'yyyy-MM-dd' }}</p>
 
-    <!-- ✅ COMMENTS SECTION -->
-    <hr>
     <h4>💬 Comments</h4>
 
     <div *ngIf="comments.length === 0">
@@ -109,7 +105,6 @@
       <hr>
     </div>
 
-    <!-- ✅ ADD COMMENT BOX -->
     <textarea [(ngModel)]="newComment" placeholder="Write a comment..."></textarea>
     <br>
     <button (click)="addComment()">Post Comment</button>
@@ -128,7 +123,8 @@
     <input [(ngModel)]="selectedIssue.title">
 
     <label>Description</label>
-    <textarea [(ngModel)]="selectedIssue.description"></textarea>
+    <textarea [(ngModel)]="selectedIssue.description" name="description" required>
+</textarea>
 
     <label>Priority</label>
     <select [(ngModel)]="selectedIssue.priority">
@@ -138,18 +134,19 @@
     </select>
 
     <label>Status</label>
-    <select [(ngModel)]="selectedIssue.status">
-      <option>Open</option>
-      <option>In Progress</option>
-      <option>Completed</option>
-    </select>
+<select [(ngModel)]="selectedIssue.status">
+  <option value="Open">Open</option>
+  <option value="InProgress">In Progress</option>
+  <option value="Completed">Completed</option>
+</select>
 
     <label>Assignee</label>
-    <select [(ngModel)]="selectedIssue.assignedTo">
-      <option *ngFor="let user of users" [value]="user.user_id">
-        {{ user.user_name }}
-      </option>
-    </select>
+<select [(ngModel)]="selectedIssue.assignedTo">
+  <option [ngValue]="null">Select User</option>
+  <option *ngFor="let user of users" [ngValue]="user.id">
+  {{ user.name }}
+</option>
+</select>
 
     <label>Deadline</label>
     <input type="date" [(ngModel)]="selectedIssue.deadline">

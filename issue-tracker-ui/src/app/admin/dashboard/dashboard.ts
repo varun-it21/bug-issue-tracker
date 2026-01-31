@@ -31,9 +31,8 @@ export class AdminDashboard implements OnInit {
   constructor(
     private issueService: IssueService,
     private router: Router,
-    private cdr: ChangeDetectorRef // ✅ important
+    private cdr: ChangeDetectorRef
   ) {
-    // ✅ Force Angular to reload dashboard every time
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -43,12 +42,12 @@ export class AdminDashboard implements OnInit {
 
   loadIssues() {
     this.issueService.getIssues().subscribe(data => {
-      console.log("Dashboard Issues:", data); // debug
+      console.log("Dashboard Issues:", data); 
 
-      this.issues = [...data]; // ✅ force refresh
+      this.issues = [...data]; 
       this.calculateDashboard();
 
-      this.cdr.detectChanges(); // ✅ force UI update
+      this.cdr.detectChanges(); 
     });
   }
 

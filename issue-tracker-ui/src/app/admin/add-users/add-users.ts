@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
-import { Router, NavigationEnd } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -16,34 +15,32 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class AddUsers implements OnInit {
 
-  users: any[] = [];
-  searchText = '';
-  showAddUser = false;
-  showView = false;
-  showEdit = false;
-  showDelete = false;
-  selectedUser: any = null;
-  currentPage = 1;
-pageSize = 5;
-  newUser = {
+    users: any[] = [];
+    searchText = '';
+    showAddUser = false;
+    showView = false;
+    showEdit = false;
+    showDelete = false;
+    selectedUser: any = null;
+    currentPage = 1;
+    pageSize = 7;
+
+    newUser = {
     user_name: '',
     user_email: '',
     password: '',
     role_id: 2,
     is_active: true
-  };
+};
 
   constructor(
   private userService: UserService,
-  private router: Router,
   private cdr: ChangeDetectorRef 
-){
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-}
+){}
 
   ngOnInit() {
   this.loadUsers();
-}
+  }
 
 loadUsers() {
   this.userService.getUsers().subscribe(data => {
@@ -73,14 +70,11 @@ loadUsers() {
   }
 
  addUser() {
-
   if (!this.newUser.user_name || !this.newUser.user_email || !this.newUser.password) {
     alert("Please fill all required fields ❗");
     return;
   }
-
   console.log("Sending user:", this.newUser);
-
   this.userService.addUser(this.newUser).subscribe({
     next: res => {
       alert("User added successfully ✅");
@@ -105,7 +99,6 @@ loadUsers() {
 
 saveEdit() {
   console.log("Editing user:", this.selectedUser.userId);
-
   this.userService.updateUser(this.selectedUser.userId, this.selectedUser)
     .subscribe({
       next: () => {

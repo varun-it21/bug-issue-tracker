@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-issues',
-  standalone: true, // ✅ important
-  imports: [CommonModule], // ✅ for ngFor, ngClass
+  standalone: true, 
+  imports: [CommonModule], 
   templateUrl: './my-issues.html',
-  styleUrls: ['./my-issues.css'], // ✅ fix styleUrl
+  styleUrls: ['./my-issues.css'], 
 })
 export class MyIssuesComponent implements OnInit {
 
-  // logged-in user (later replace with real login)
-  loggedInUser = 'Varun';
+  loggedInUser = '';
 
   issues = [
     { issueId: 1, title: 'Login Bug', priority: 'HIGH', status: 'OPEN', assignedTo: 'Varun' },

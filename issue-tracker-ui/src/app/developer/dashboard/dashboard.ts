@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgFor, NgClass, CommonModule } from '@angular/common';
+import { IssueService } from '../../services/issue.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -10,63 +14,68 @@ import { NgFor, NgClass, CommonModule } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
 
-  // Simulate logged-in user
-  loggedInUser = 'Varun';
+   loggedInUserId = ''; 
 
   totalIssues = 0;
 
-  priority = {
-    high: 0,
-    medium: 0,
-    low: 0
-  };
+  priority = { high:0, medium:0, low:0 };
+  status = { open:0, inProgress:0, completed:0 };
 
-  status = {
-    open: 0,
-    inProgress: 0,
-    completed: 0
-  };
+  myIssues:any[] = [];
+  highPriorityIssues:any[] = [];
 
-  issues = [
-    { issueId: 1, title: 'Login Bug', description: 'Login fails', priority: 'High', status: 'Open', assignedTo: 'Varun' },
-    { issueId: 2, title: 'UI Bug', description: 'CSS issue', priority: 'Medium', status: 'In-progress', assignedTo: 'Varun' },
-    { issueId: 3, title: 'API Error', description: '500 error', priority: 'Low', status: 'Completed', assignedTo: 'Arun' },
-    { issueId: 4, title: 'Security Bug', description: 'XSS issue', priority: 'High', status: 'Open', assignedTo: 'Varun' },
-    { issueId: 5, title: 'DB Issue', description: 'Query slow', priority: 'Low', status: 'Open', assignedTo: 'Varun' }
-  ];
+  constructor(private issueService: IssueService,
+      private router: Router
 
-  myIssues: any[] = [];
-  highPriorityIssues: any[] = [];
+  ) {}
 
-  ngOnInit(): void {
-    this.loadDashboard();
+  ngOnInit() {
+    this.loadDashboard(); 
+  this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(() => {
+      this.loadDashboard();   
+    });
   }
 
   loadDashboard() {
 
-    // Filter issues for logged-in user
-    this.myIssues = this.issues.filter(issue => issue.assignedTo === this.loggedInUser);
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const userId = user.userId;
 
-    // Total issues count
-    this.totalIssues = this.myIssues.length;
+  console.log("Logged In User From Storage:", user);   
+  console.log("UserId Sending To API:", userId);       
 
-    // Reset counts
-    this.priority = { high: 0, medium: 0, low: 0 };
-    this.status = { open: 0, inProgress: 0, completed: 0 };
+  if (!userId) return;
 
-    // Priority & Status count
-    this.myIssues.forEach(issue => {
+  this.issueService.getIssuesByUser(userId)
+    .subscribe((data: any[]) => {
 
-      if (issue.priority === 'High') this.priority.high++;
-      if (issue.priority === 'Medium') this.priority.medium++;
-      if (issue.priority === 'Low') this.priority.low++;
+      console.log("Dashboard API Data:", data);       
 
-      if (issue.status === 'Open') this.status.open++;
-      if (issue.status === 'In-progress') this.status.inProgress++;
-      if (issue.status === 'Completed') this.status.completed++;
+      this.myIssues = data;
+
+      this.totalIssues = data.length;
+
+      this.priority = { high: 0, medium: 0, low: 0 };
+      this.status = { open: 0, inProgress: 0, completed: 0 };
+
+      data.forEach(issue => {
+
+        if (issue.priority === 'High') this.priority.high++;
+        if (issue.priority === 'Medium') this.priority.medium++;
+        if (issue.priority === 'Low') this.priority.low++;
+
+        if (issue.status === 'Open') this.status.open++;
+        if (issue.status === 'InProgress') this.status.inProgress++;
+        if (issue.status === 'Completed') this.status.completed++;
+
+      });
+
+      this.highPriorityIssues =
+        data.filter(i => i.priority === 'High');
+
     });
 
-    // High priority issues (for table)
-    this.highPriorityIssues = this.myIssues.filter(issue => issue.priority === 'High');
   }
 }

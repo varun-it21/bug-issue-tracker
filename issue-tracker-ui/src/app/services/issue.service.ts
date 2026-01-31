@@ -37,4 +37,10 @@ addComment(data: any) {
   return this.http.post(`http://localhost:5165/api/issues/comments`, data);
 }
 
+getIssuesByUser(userId: number) {
+  return this.http.get<any[]>(
+    `${this.apiUrl}/assigned/${userId}`
+  );
+}
+
 }
