@@ -16,7 +16,6 @@ namespace IssueTracker.API.Controllers
             _context = context;
         }
 
-        // ✅ 1. GET ALL ISSUES
         [HttpGet]
         public async Task<IActionResult> GetIssues()
         {
@@ -31,44 +30,47 @@ namespace IssueTracker.API.Controllers
             }
         }
 
-        // ✅ 2. UPDATE ISSUE
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIssue(int id, Issue newIssue)
+        public async Task<IActionResult> UpdateIssue(int id, Issue issue)
         {
-            var issue = await _context.issues.FirstOrDefaultAsync(i => i.IssueId == id);
+            if (id != issue.IssueId)
+                return BadRequest("ID mismatch");
 
-            if (issue == null)
-                return NotFound("Issue not found");
+            var existingIssue = await _context.issues.FindAsync(id);
 
-            issue.Title = newIssue.Title;
-            issue.Description = newIssue.Description;
-            issue.Priority = newIssue.Priority;
-            issue.Status = newIssue.Status;
-            issue.AssignedTo = newIssue.AssignedTo;
-            issue.Deadline = newIssue.Deadline;
-            issue.UpdatedAt = DateTime.Now;
+            if (existingIssue == null)
+                return NotFound();
+
+            existingIssue.Title = issue.Title;
+            existingIssue.Description = issue.Description;
+            existingIssue.Priority = issue.Priority;
+            existingIssue.Status = issue.Status;
+            existingIssue.AssignedTo = issue.AssignedTo;
+            existingIssue.Deadline = issue.Deadline;
 
             await _context.SaveChangesAsync();
 
-            return Ok(issue);
+            return Ok(existingIssue);
         }
 
-        // ✅ 3. DELETE ISSUE
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIssue(int id)
         {
-            var issue = await _context.issues.FirstOrDefaultAsync(i => i.IssueId == id);
+            var issue = await _context.issues.FindAsync(id);
 
             if (issue == null)
                 return NotFound("Issue not found");
-
+            var comments = _context.IssueComments.Where(c => c.IssueId == id);
+            _context.IssueComments.RemoveRange(comments);
             _context.issues.Remove(issue);
+
             await _context.SaveChangesAsync();
 
-            return Ok("Issue deleted successfully");
+            return Ok(new { message = "Issue deleted successfully" });
         }
 
-        // ✅ CREATE ISSUE (POST)
+
         [HttpPost]
         public async Task<IActionResult> CreateIssue(Issue issue)
         {
@@ -81,7 +83,6 @@ namespace IssueTracker.API.Controllers
             return Ok(issue);
         }
 
-        // ✅ GET ISSUE BY ID
         [HttpGet("{id}")]
         public async Task<IActionResult> GetIssueById(int id)
         {
