@@ -9,43 +9,43 @@
   margin-bottom: 20px;
   font-size: 22px;
   font-weight: 600;
-  color: #1f2937;
+  color: #ff6f61;
 }
 
-/* Table Container */
 table {
   width: 100%;
   border-collapse: collapse;
   background: white;
-  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* Header */
-thead {
-  background: #f1f5f9;
+table thead {
+  background: #000000;
+  color: white;
+}
+
+thead:hover{
+  color: #ff6f61;
 }
 
 th {
   padding: 14px 12px;
   font-size: 14px;
   font-weight: 600;
-  color: #374151;
+  color: #ffffff;
   text-align: left;
 }
 
-/* Body */
+th:hover{
+  color: #ff6f61;
+}
+
 td {
   padding: 12px;
   font-size: 14px;
   color: #374151;
   border-bottom: 1px solid #e5e7eb;
-}
-
-tr:hover {
-  background: #f9fafb;
-  transition: 0.2s;
 }
 
 .badge {
@@ -72,20 +72,133 @@ tr:hover {
 }
 
 .status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
-  font-size: 13px;
 }
 
 .Open {
+  background: #dbeafe;
   color: #2563eb;
 }
 
-.In-progress {
+.InProgress {
+  background: #fef9c3;
   color: #f59e0b;
 }
 
 .Completed {
+    background: #dcfce7;
   color: #16a34a;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
+.modal-content {
+  background: #ffffff;
+  width: 420px;
+  max-width: 90%;
+  padding: 20px 24px;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  animation: popupFade 0.25s ease-in-out;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #444;
+}
+
+.modal-content select,
+.modal-content textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.modal-content textarea {
+  resize: none;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.actions button {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.actions button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.actions button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.modal-content p {
+  margin: 6px 0;
+  color: #555;
+}
+
+button{
+  background-color: orangered;
+  color: white;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comment-box {
+  padding: 8px 0;
+}
+
+.comment-text {
+  margin: 0;
+  font-size: 14px;
+}
+
+.locked-msg {
+  font-size: 12px;
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

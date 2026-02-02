@@ -15,12 +15,9 @@ import { filter } from 'rxjs/operators';
 export class DashboardComponent implements OnInit {
 
    loggedInUserId = ''; 
-
   totalIssues = 0;
-
   priority = { high:0, medium:0, low:0 };
   status = { open:0, inProgress:0, completed:0 };
-
   myIssues:any[] = [];
   highPriorityIssues:any[] = [];
 
@@ -39,7 +36,6 @@ export class DashboardComponent implements OnInit {
   }
 
   loadDashboard() {
-
     const user = JSON.parse(localStorage.getItem('user') || '{}');
   const userId = user.userId;
 
@@ -47,35 +43,25 @@ export class DashboardComponent implements OnInit {
   console.log("UserId Sending To API:", userId);       
 
   if (!userId) return;
-
   this.issueService.getIssuesByUser(userId)
     .subscribe((data: any[]) => {
-
       console.log("Dashboard API Data:", data);       
-
       this.myIssues = data;
-
       this.totalIssues = data.length;
-
       this.priority = { high: 0, medium: 0, low: 0 };
       this.status = { open: 0, inProgress: 0, completed: 0 };
 
       data.forEach(issue => {
-
         if (issue.priority === 'High') this.priority.high++;
         if (issue.priority === 'Medium') this.priority.medium++;
         if (issue.priority === 'Low') this.priority.low++;
-
         if (issue.status === 'Open') this.status.open++;
         if (issue.status === 'InProgress') this.status.inProgress++;
         if (issue.status === 'Completed') this.status.completed++;
-
       });
 
       this.highPriorityIssues =
         data.filter(i => i.priority === 'High');
-
     });
-
   }
 }

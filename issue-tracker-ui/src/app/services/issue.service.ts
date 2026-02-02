@@ -18,10 +18,6 @@ export class IssueService {
     return this.http.post(this.apiUrl, issue);
   }
 
-  updateIssue(id: number, issue: any) {
-  return this.http.put(`http://localhost:5165/api/issues/${id}`, issue);
-}
-
   deleteIssue(id: number) {
   return this.http.delete(
     `http://localhost:5165/api/issues/${id}`,
@@ -30,11 +26,16 @@ export class IssueService {
 }
 
 getComments(issueId: number) {
-  return this.http.get<any[]>(`http://localhost:5165/api/issues/${issueId}/comments`);
+  return this.http.get<any[]>(
+    `http://localhost:5165/api/issues/${issueId}/comments`
+  );
 }
 
 addComment(data: any) {
-  return this.http.post(`http://localhost:5165/api/issues/comments`, data);
+  return this.http.post(
+    `http://localhost:5165/api/issues/comments`,
+    data
+  );
 }
 
 getIssuesByUser(userId: number) {
@@ -42,5 +43,20 @@ getIssuesByUser(userId: number) {
     `${this.apiUrl}/assigned/${userId}`
   );
 }
+
+updateIssue(issueId: number, payload: any) {
+  return this.http.put(
+    `http://localhost:5165/api/issues/${issueId}`,
+    payload
+  );
+}
+
+getMyIssues(userId: number) {
+  return this.http.get<any[]>(
+    `http://localhost:5165/api/issues/assigned/${userId}`
+  );
+}
+
+
 
 }

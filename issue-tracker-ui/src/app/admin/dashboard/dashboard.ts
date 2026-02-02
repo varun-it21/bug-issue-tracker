@@ -59,7 +59,7 @@ export class AdminDashboard implements OnInit {
 
     for (let issue of this.issues) {
       if (issue.status === 'Open') this.status.open++;
-      else if (issue.status === 'In Progress') this.status.inProgress++;
+      else if (issue.status === 'InProgress') this.status.inProgress++;
       else if (issue.status === 'Completed') this.status.completed++;
 
       if (issue.priority === 'High') this.priority.high++;

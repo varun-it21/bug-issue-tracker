@@ -2,7 +2,7 @@
 
   <h2>My Issues 👨‍💻</h2>
 
-  <table>
+  <table *ngIf="myIssues.length > 0">
     <thead>
       <tr>
         <th>ID</th>
@@ -10,6 +10,8 @@
         <th>Priority</th>
         <th>Status</th>
         <th>Assignee</th>
+        <th>Comments</th>
+        <th>Action</th>
       </tr>
     </thead>
 
@@ -17,18 +19,75 @@
       <tr *ngFor="let issue of myIssues">
         <td>{{ issue.issueId }}</td>
         <td>{{ issue.title }}</td>
+
         <td>
           <span class="badge" [ngClass]="issue.priority">
             {{ issue.priority }}
           </span>
         </td>
+
         <td>
           <span class="status" [ngClass]="issue.status">
             {{ issue.status }}
           </span>
         </td>
+
         <td>{{ issue.assignedTo }}</td>
+
+
+        <td>
+          <ng-container *ngIf="commentsMap[issue.issueId] as comments">
+            <div *ngIf="comments.length > 0; else noComment">
+              <small>{{ comments[0].commentText }}</small>
+            </div>
+          </ng-container>
+
+          <ng-template #noComment>
+            <small style="color: gray">No comments</small>
+          </ng-template>
+        </td>
+
+        <td>
+
+
+          <button (click)="openUpdate(issue)" [disabled]="issue.status === 'Completed'"
+            title="Completed issues can be updated only by admin">
+            Update
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <p *ngIf="myIssues.length === 0">
+    🎉 No issues assigned to you.
+  </p>
+
+</div>
+
+<div class="modal" *ngIf="showUpdate">
+  <div class="modal-content">
+
+    <h3>Update Issue</h3>
+
+    <p><b>ID:</b> {{ selectedIssue.issueId }}</p>
+    <p><b>Title:</b> {{ selectedIssue.title }}</p>
+    <p><b>Priority:</b> {{ selectedIssue.priority }}</p>
+
+    <label>Status *</label>
+    <select [(ngModel)]="selectedIssue.status">
+      <option value="Open">Open</option>
+      <option value="InProgress">In-Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+
+    <label>Comment *</label>
+    <textarea rows="4" [(ngModel)]="comment" placeholder="Why are you changing the status?"></textarea>
+
+    <div class="actions">
+      <button (click)="saveStatus()">Save</button>
+      <button (click)="closeUpdate()">Cancel</button>
+    </div>
+
+  </div>
 </div>

@@ -40,7 +40,7 @@ td:hover{
 .Low { background: #dcfce7; color: #16a34a; }
 
 .status.Open { color: #2563eb; font-weight: 600; }
-.status.In\ Progress { color: #f59e0b; font-weight: 600; }
+.status.In-Progress { color: #f59e0b; font-weight: 600; }
 .status.Completed { color: #16a34a; font-weight: 600; }
 
 .filters {
@@ -247,8 +247,7 @@ tbody tr:hover {
   background: #dbeafe;
   color: #2563eb;
 }
-
-.In\ Progress {
+.InProgress {
   background: #fef9c3;
   color: #ca8a04;
 }
@@ -389,4 +388,14 @@ tbody tr:hover {
   padding: 8px 14px;
   border-radius: 6px;
   border: none;
+}
+
+.no-comment {
+  color: #999;
+  font-style: italic;
+}
+
+td {
+  max-width: 220px;
+  word-wrap: break-word;
 }

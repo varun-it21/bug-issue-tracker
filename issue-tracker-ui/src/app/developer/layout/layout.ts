@@ -7,22 +7,22 @@ import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgIf], 
+  imports: [RouterOutlet, RouterLink, NgIf],
   templateUrl: './layout.html',
   styleUrl: './layout.css',
 })
 export class Layout {
 
-    showMenu = false;
-  isSidebarOpen = true;  
+  showMenu = false;
+  isSidebarOpen = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
 
-  toggleSidebar() {      
+  toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 

@@ -4,7 +4,7 @@
   <select [(ngModel)]="selectedStatus">
     <option value="">All Status</option>
     <option value="Open">Open</option>
-    <option value="InProgress">In Progress</option>
+    <option value="InProgress">In-Progress</option>
     <option value="Completed">Completed</option>
   </select>
 
@@ -32,6 +32,7 @@
         <th>Status</th>
         <th>Assignee</th>
         <th>Deadline</th>
+        <th>Comments</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -55,6 +56,15 @@
           {{ issue.deadline | date:'yyyy-MM-dd' }}
         </td>
 
+        <td>
+  <ng-container *ngIf="commentsMap[issue.issueId]?.length; else noComments">
+    {{ commentsMap[issue.issueId][0]?.commentText }}
+  </ng-container>
+
+  <ng-template #noComments>
+    <span class="no-comment">No comments</span>
+  </ng-template>
+</td>
         <td class="actions">
           <button (click)="openView(issue)">View</button>
           <button (click)="openEdit(issue)">Edit</button>
@@ -136,16 +146,16 @@
     <label>Status</label>
 <select [(ngModel)]="selectedIssue.status">
   <option value="Open">Open</option>
-  <option value="InProgress">In Progress</option>
+  <option value="InProgress">In-Progress</option>
   <option value="Completed">Completed</option>
 </select>
 
     <label>Assignee</label>
 <select [(ngModel)]="selectedIssue.assignedTo">
   <option [ngValue]="null">Select User</option>
-  <option *ngFor="let user of users" [ngValue]="user.id">
-  {{ user.name }}
-</option>
+  <option *ngFor="let user of users" [ngValue]="user.userId">
+    {{ user.user_name }}
+  </option>
 </select>
 
     <label>Deadline</label>
