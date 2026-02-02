@@ -19,23 +19,20 @@ namespace IssueTracker.API.Controllers
         [HttpGet("{issueId}/comments")]
         public async Task<IActionResult> GetComments(int issueId)
         {
-            var comments = await _context.IssueComments
+            return Ok(await _context.IssueComments
                 .Where(c => c.IssueId == issueId)
                 .OrderByDescending(c => c.CmtAt)
-                .ToListAsync();
-
-            return Ok(comments);
+                .ToListAsync());
         }
 
         [HttpPost("comments")]
         public async Task<IActionResult> AddComment([FromBody] IssueComment comment)
         {
-            comment.CmtAt = System.DateTime.Now;
-
+            comment.CmtAt = DateTime.Now;
             _context.IssueComments.Add(comment);
             await _context.SaveChangesAsync();
-
             return Ok(comment);
         }
+
     }
 }

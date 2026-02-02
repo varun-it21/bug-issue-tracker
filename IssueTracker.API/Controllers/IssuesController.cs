@@ -27,24 +27,29 @@ namespace IssueTracker.API.Controllers
         public async Task<IActionResult> UpdateIssue(int id, [FromBody] Issue issue)
         {
             var existingIssue = await _context.issues.FindAsync(id);
-
             if (existingIssue == null)
                 return NotFound("Issue not found");
-
-            existingIssue.Title = issue.Title;
-            existingIssue.Description = issue.Description;
-            existingIssue.Priority = issue.Priority;
             existingIssue.Status = issue.Status;
-            existingIssue.AssignedTo = issue.AssignedTo;
-            existingIssue.Deadline = issue.Deadline;
-
             existingIssue.UpdatedAt = DateTime.Now;
-            existingIssue.UpdatedBy = 1; 
+            existingIssue.UpdatedBy = issue.UpdatedBy;
+
+            if (!string.IsNullOrWhiteSpace(issue.Description))
+            {
+                var comment = new IssueComment
+                {
+                    IssueId = id,
+                    CommentText = issue.Description,
+                    CmtBy = issue.UpdatedBy ?? 0,
+                    CmtAt = DateTime.Now
+                };
+                _context.IssueComments.Add(comment);
+            }
 
             await _context.SaveChangesAsync();
-
             return Ok(existingIssue);
         }
+
+
 
 
 

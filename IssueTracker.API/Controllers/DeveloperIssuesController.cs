@@ -28,12 +28,9 @@ public class DeveloperController : ControllerBase
             .GroupBy(i => i.Status)
             .Select(g => new { Status = g.Key, Count = g.Count() })
             .ToListAsync();
-
-        // High priority issues list
         var highPriorityIssues = await _context.issues
             .Where(i => i.AssignedTo == userId && i.Priority!.ToUpper() == "HIGH")
             .ToListAsync();
-
         return Ok(new
         {
             totalIssues,
