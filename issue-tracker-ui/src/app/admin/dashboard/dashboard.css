@@ -41,7 +41,8 @@ table {
 }
 
 thead {
-  background: #f1f5f9;
+  background: #000000;
+  color: white;
 }
 
 th, td {
@@ -52,8 +53,9 @@ th, td {
   word-wrap: break-word;
 }
 
-tr:hover {
-  background: #f8fafc;
+th:hover {
+  color: #ff6f61;
+  cursor: pointer;
 }
 
 .badge {
