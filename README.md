@@ -170,7 +170,7 @@ Refresh page → Login persists
 
 Completed issues → Locked for developers
 
-🔮 Future Enhancements
+### 🔮 Future Enhancements 
 JWT authentication
 
 Role-based API authorization
