@@ -79,26 +79,55 @@ This application helps teams track issues, manage assignments, enforce workflows
 
 ## 📂 Project Structure
 
+### 🖥️ Frontend – Angular (`issue-tracker-ui`)
+```text
 issue-tracker-ui/
+├── src/
+│   ├── app/
+│   │   ├── admin/
+│   │   │   ├── issues/
+│   │   │   └── add-issues/
+│   │   │
+│   │   ├── developer/
+│   │   │   └── my-issues/
+│   │   │
+│   │   ├── services/
+│   │   │   ├── issue.service.ts
+│   │   │   └── user.service.ts
+│   │   │
+│   │   ├── auth/
+│   │   ├── app.component.ts
+│   │   └── app.routes.ts
+│   │
+│   ├── assets/
+│   ├── environments/
+│   └── index.html
 │
-├── src/app/
-│ ├── admin/
-│ │ ├── issues/
-│ │ ├── add-issues/
-│ ├── developer/
-│ │ ├── my-issues/
-│ ├── services/
-│ │ ├── issue.service.ts
-│ │ ├── user.service.ts
-│
-issue-tracker-api/
-│
-├── Controllers/
-│ ├── IssuesController.cs
-│ ├── IssueCommentsController.cs
-│ ├── Models/
-│ ├── Data/
+├── angular.json
+├── package.json
+└── README.md
 
+
+### 🖥️ Backend – ### 🖥️ Frontend – Angular (`issue-tracker-ui`)
+issue-tracker-api/
+├── Controllers/
+│   ├── IssuesController.cs
+│   └── IssueCommentsController.cs
+│
+├── Models/
+│   ├── Issue.cs
+│   ├── IssueComment.cs
+│   ├── User.cs
+│   └── Role.cs
+│
+├── Data/
+│   └── AppDbContext.cs
+│
+├── Migrations/
+├── Program.cs
+├── appsettings.json
+└── README.md
+```
 
 ---
 
