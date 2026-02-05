@@ -6,6 +6,7 @@ namespace IssueTracker.API.Models
     {
         [Key]
         public int role_id { get; set; }
+
         public string role_name { get; set; }
     }
 }
