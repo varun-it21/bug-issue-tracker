@@ -10,16 +10,39 @@
   gap: 20px;
 }
 
-.card {
-  background: white;
+.card1 {
+  background: #2564ebc8;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.card h3 {
-  color: #475569;
+.card2 {
+  background: #16a34ac9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+.card3 {
+  background: #dc2626da;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  height: fit-content;
+}
+
+
+.card1,.card2,.card3 h3,p {
+  color: #ffffff;
   margin-bottom: 10px;
+}
+
+.card1 img,.card2 img,.card3 img{
+  height: 50px;
+  width: 50px;
+  float: right;
 }
 
 .card h1 {

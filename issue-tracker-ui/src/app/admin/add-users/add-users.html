@@ -99,12 +99,25 @@
   <div class="modal-content">
     <h3>Edit User ✏️</h3>
 
-    <input [(ngModel)]="selectedUser.user_name">
-    <input [(ngModel)]="selectedUser.user_email">
+    <label>Name</label>
+    <input
+      [(ngModel)]="selectedUser.user_name"
+      name="edit_user_name"
+    >
 
-    <select [(ngModel)]="selectedUser.is_active">
-      <option [value]="true">Active</option>
-      <option [value]="false">Inactive</option>
+    <label>Email</label>
+    <input
+      [(ngModel)]="selectedUser.user_email"
+      name="edit_user_email"
+    >
+
+    <label>Status</label>
+    <select
+      [(ngModel)]="selectedUser.is_active"
+      name="edit_is_active"
+    >
+      <option [ngValue]="true">Active</option>
+      <option [ngValue]="false">Inactive</option>
     </select>
 
     <div class="modal-actions">

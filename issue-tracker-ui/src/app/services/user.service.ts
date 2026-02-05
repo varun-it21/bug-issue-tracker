@@ -18,8 +18,11 @@ export class UserService {
     return this.http.post(this.apiUrl, user);
   }
 
-  updateUser(id: number, user: any) {
-  return this.http.put(`http://localhost:5165/api/Users/${id}`, user);
+ updateUser(id: number, payload: any) {
+  return this.http.put(
+    `http://localhost:5165/api/users/${id}`,
+    payload
+  );
 }
 
 deleteUser(id: number) {

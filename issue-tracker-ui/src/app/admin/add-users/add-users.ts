@@ -93,20 +93,39 @@ loadUsers() {
   }
 
   openEdit(user: any) {
-  this.selectedUser = { ...user }; 
+  this.selectedUser = {
+    userId: user.userId,
+    user_name: user.user_name,
+    user_email: user.user_email,
+    role_id: user.role_id,
+    is_active: user.is_active
+  };
   this.showEdit = true;
 }
 
 saveEdit() {
-  console.log("Editing user:", this.selectedUser.userId);
-  this.userService.updateUser(this.selectedUser.userId, this.selectedUser)
+  const payload = {
+    user_name: this.selectedUser.user_name,
+    user_email: this.selectedUser.user_email,
+    is_active: Boolean(this.selectedUser.is_active)
+  };
+
+  this.userService.updateUser(this.selectedUser.userId, payload)
     .subscribe({
       next: () => {
         alert("User updated successfully ✅");
-        this.loadUsers();
+        this.loadUsers(); 
         this.closePopup();
       },
-      error: err => console.error("Update error:", err)
+      error: err =>  {
+    if (err.status === 401) {
+      alert("Session expired. Please login again ❌");
+    } else if (err.status === 403) {
+      alert("You are not authorized ❌");
+    } else {
+      alert("Update failed ❌");
+    }
+  }
     });
 }
 

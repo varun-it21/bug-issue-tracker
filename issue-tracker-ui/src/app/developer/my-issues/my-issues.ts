@@ -55,7 +55,7 @@ export class MyIssuesComponent implements OnInit {
 
  saveStatus() {
   if (!this.comment.trim()) {
-    alert('Comment is required ❗');
+    alert('updated Successfully ✅');
     return;
   }
   const user = JSON.parse(localStorage.getItem('user') || '{}');

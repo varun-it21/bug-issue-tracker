@@ -21,23 +21,27 @@ export class Login {
 
   login() {
     this.authService.login(this.email, this.password).subscribe({
-      next: (res: any) => {
-        console.log('Login Response:', res);
-        localStorage.setItem('user', JSON.stringify(res));
-
-        if (res.role_name === 'Admin') {
-          this.router.navigate(['/admin']);
-        } 
-        else if (res.role_name === 'Developer') {
-          this.router.navigate(['/developer']);
-        } 
-        else {
-          alert('Unknown role ❌');
-        }
-      },
-      error: () => {
-        this.message = 'Invalid email or password ❌';
+    next: (res: any) => {
+      console.log('Login Response:', res);
+      if (!res.user.is_active) {
+        alert("User is not active!");
+        return;
       }
-    });
-  }
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', JSON.stringify(res.user));
+      if (res.user.role === 'Admin') {
+        this.router.navigate(['/admin']);
+      } else if (res.user.role === 'Developer') {
+        this.router.navigate(['/developer']);
+      }
+    },
+    error: (err) => {
+      if (err.status === 401 && err.error) {
+        alert(err.error); 
+      } else {
+        alert("Login failed ❌");
+      }
+    }
+  });
+}
 }

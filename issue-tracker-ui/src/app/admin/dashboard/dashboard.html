@@ -1,19 +1,23 @@
 <div class="dashboard">
   <div class="cards">
 
-    <div class="card">
+    <div class="card1">
+      <img src="/alert.png" alt="">
       <h3>Total Issues</h3>
       <h1>{{ totalIssues }}</h1>
+      
     </div>
 
-    <div class="card">
+    <div class="card2">
+      <img src="/status.png" alt="">
       <h3>Status</h3>
       <p>Open: {{ status.open }}</p>
       <p>In Progress: {{ status.inProgress }}</p>
       <p>Completed: {{ status.completed }}</p>
     </div>
 
-    <div class="card">
+    <div class="card3">
+      <img src="/prioritize.png" alt="">
       <h3>Priority</h3>
       <p>High: {{ priority.high }}</p>
       <p>Medium: {{ priority.medium }}</p>
