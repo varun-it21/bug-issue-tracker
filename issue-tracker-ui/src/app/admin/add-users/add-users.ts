@@ -104,28 +104,33 @@ loadUsers() {
 }
 
 saveEdit() {
+  this.cdr.detectChanges();
+
+  console.log('After detectChanges:', this.selectedUser);
+
   const payload = {
-    user_name: this.selectedUser.user_name,
-    user_email: this.selectedUser.user_email,
+    user_name: this.selectedUser.user_name?.trim(),
+    user_email: this.selectedUser.user_email?.trim(),
+    role_id: this.selectedUser.role_id,
     is_active: Boolean(this.selectedUser.is_active)
   };
+
+  // safety guard
+  if (!payload.user_name || !payload.user_email) {
+    alert('Name or Email is empty ❌');
+    return;
+  }
 
   this.userService.updateUser(this.selectedUser.userId, payload)
     .subscribe({
       next: () => {
-        alert("User updated successfully ✅");
-        this.loadUsers(); 
+        alert('User updated successfully ✅');
+        this.loadUsers();
         this.closePopup();
       },
-      error: err =>  {
-    if (err.status === 401) {
-      alert("Session expired. Please login again ❌");
-    } else if (err.status === 403) {
-      alert("You are not authorized ❌");
-    } else {
-      alert("Update failed ❌");
-    }
-  }
+      error: err => {
+        console.error('Validation errors:', err.error?.errors);
+      }
     });
 }
 

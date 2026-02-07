@@ -53,34 +53,31 @@ export class MyIssuesComponent implements OnInit {
     this.comment = '';
   }
 
- saveStatus() {
-  if (!this.comment.trim()) {
-    alert('updated Successfully ✅');
-    return;
-  }
+  addComment() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const payload = {
+
+  const data = {
     issueId: this.selectedIssue.issueId,
-    title: this.selectedIssue.title,        
-    status: this.selectedIssue.status,      
-    description: this.comment,             
-    updatedBy: user.userId
+    commentText: this.comment,
+    cmtBy: user.userId
   };
 
-  this.issueService.updateIssue(
+  this.issueService.addComment(data).subscribe();
+}
+
+ saveStatus() {
+   if (!this.comment.trim()) {
+    alert('Please enter a comment');
+    return;
+  }
+
+  this.issueService.updateIssueStatus(
     this.selectedIssue.issueId,
-    payload
+    this.selectedIssue.status   // 🔥 STRING ONLY
   ).subscribe({
     next: () => {
-      this.selectedIssue.status = payload.status;
-      if (!this.commentsMap[this.selectedIssue.issueId]) {
-        this.commentsMap[this.selectedIssue.issueId] = [];
-      }
-      this.commentsMap[this.selectedIssue.issueId].unshift({
-        commentText: this.comment,
-        cmtBy: user.userId,
-        cmtAt: new Date()
-      });
+      this.addComment();        // post comment
+      alert('Status updated successfully ✅');
       this.closeUpdate();
     },
     error: err => {

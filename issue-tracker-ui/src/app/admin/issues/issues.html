@@ -104,16 +104,16 @@
 
     <h4>💬 Comments</h4>
 
-    <div *ngIf="comments.length === 0">
-      <p>No comments yet.</p>
-    </div>
+<div *ngIf="commentsMap[selectedIssue?.issueId]?.length === 0">
+  <p>No comments yet.</p>
+</div>
 
-    <div *ngFor="let c of comments" class="comment-box">
-      <p><b>User ID:</b> {{ c.cmtBy }}</p>
-      <p>{{ c.commentText }}</p>
-      <small>{{ c.cmtAt | date:'short' }}</small>
-      <hr>
-    </div>
+<div *ngFor="let c of commentsMap[selectedIssue?.issueId]" class="comment-box">
+  <p><b>User ID:</b> {{ c.cmtBy }}</p>
+  <p>{{ c.commentText }}</p>
+  <small>{{ c.cmtAt | date:'short' }}</small>
+  <hr>
+</div>
 
     <textarea [(ngModel)]="newComment" placeholder="Write a comment..."></textarea>
     <br>

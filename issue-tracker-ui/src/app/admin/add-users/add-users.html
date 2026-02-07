@@ -101,15 +101,20 @@
 
     <label>Name</label>
     <input
-      [(ngModel)]="selectedUser.user_name"
-      name="edit_user_name"
-    >
+  type="text"
+  [(ngModel)]="selectedUser.user_name"
+  name="user_name"
+  required
+/>
+
 
     <label>Email</label>
-    <input
-      [(ngModel)]="selectedUser.user_email"
-      name="edit_user_email"
-    >
+   <input
+  type="email"
+  [(ngModel)]="selectedUser.user_email"
+  name="user_email"
+  required
+/>
 
     <label>Status</label>
     <select

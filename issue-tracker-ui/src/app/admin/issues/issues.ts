@@ -29,7 +29,6 @@ export class Issues implements OnInit {
   userMap: any = {};
   comments: any[] = [];
   newComment: string = '';
-  loggedInUserId = 1;
 
   currentPage = 1;
   pageSize = 7;
@@ -143,42 +142,63 @@ export class Issues implements OnInit {
 
   saveEdit() {
 
-    console.log('saveEdit() CALLED');
-
-    if (!this.selectedIssue.title?.trim()) {
-      alert('Title is required');
-      return;
-    }
-    if (!this.selectedIssue.status?.trim()) {
-      alert('Status is required');
-      return;
-    }
-    if (!this.selectedIssue.description?.trim()) {
-      alert('Description is required');
-      return;
-    }
-    const id = this.selectedIssue.issueId;
-    const updatedIssue = {
-      title: this.selectedIssue.title,
-      description: this.selectedIssue.description,
-      priority: this.selectedIssue.priority,
-      status: this.selectedIssue.status,
-      assignedTo: this.selectedIssue.assignedTo ?? null,  
-      deadline: this.selectedIssue.deadline
-    };
-    console.log('PUT PAYLOAD 👉', updatedIssue);
-    this.issueService.updateIssue(id, updatedIssue).subscribe({
-      next: () => {
-        alert('Issue updated successfully ✅');
-        this.loadUsersAndIssues();
-        this.closePopup();
-      },
-      error: (err) => {
-        console.error('Update error:', err);
-        alert('Failed to update issue ❌');
-      }
-    });
+  // 🔴 REQUIRED VALIDATIONS (USE HERE)
+  if (!this.selectedIssue.title?.trim()) {
+    alert('Title is required');
+    return;
   }
+
+  if (!this.selectedIssue.description?.trim()) {
+    alert('Description is required');
+    return;
+  }
+
+  if (!this.selectedIssue.status?.trim()) {
+    alert('Status is required');
+    return;
+  }
+
+  if (!this.selectedIssue.priority) {
+    alert('Priority is required');
+    return;
+  }
+
+  if (!this.selectedIssue.assignedTo) {
+    alert('Assignee is required');
+    return;
+  }
+
+  if (!this.selectedIssue.deadline) {
+    alert('Deadline is required');
+    return;
+  }
+
+  // 🔵 PAYLOAD (FULL ISSUE – ADMIN ONLY)
+  const id = this.selectedIssue.issueId;
+  const updatedIssue = {
+    title: this.selectedIssue.title,
+    description: this.selectedIssue.description,
+    priority: this.selectedIssue.priority,
+    status: this.selectedIssue.status,
+    assignedTo: this.selectedIssue.assignedTo,
+    deadline: this.selectedIssue.deadline
+  };
+
+  console.log('ADMIN PUT PAYLOAD 👉', updatedIssue);
+
+  this.issueService.updateIssue(id, updatedIssue).subscribe({
+    next: () => {
+      alert('Issue updated successfully ✅');
+      this.loadUsersAndIssues();
+      this.closePopup();
+    },
+    error: err => {
+      console.error('Update error:', err);
+      alert('Failed to update issue ❌');
+    }
+  });
+}
+
 
   confirmDelete() {
     const id = this.selectedIssue.issueId || this.selectedIssue.issue_id;
@@ -203,18 +223,26 @@ export class Issues implements OnInit {
     this.selectedIssue = null;
   }
 
-  addComment() {
-    if (!this.newComment.trim()) return;
-    const data = {
-      issueId: this.selectedIssue.issueId,
-      commentText: this.newComment,
-      cmtBy: this.loggedInUserId
-    };
-    this.issueService.addComment(data).subscribe(() => {
+addComment() {
+  if (!this.newComment.trim()) return;
+
+  const user = JSON.parse(localStorage.getItem('user')!);
+
+  const data = {
+    issueId: this.selectedIssue.issueId,
+    commentText: this.newComment,
+    cmtBy: user.userId
+  };
+
+  this.issueService.addComment(data).subscribe({
+    next: () => {
+      alert('✅ Comment added successfully');
       this.newComment = '';
       this.loadComments(this.selectedIssue.issueId);
-    });
-  }
+    }
+  });
+}
+
 
   loadComments(issueId: number) {
     this.issueService.getComments(issueId).subscribe((res: any[]) => {

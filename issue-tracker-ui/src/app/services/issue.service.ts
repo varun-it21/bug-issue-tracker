@@ -44,6 +44,14 @@ getIssuesByUser(userId: number) {
   );
 }
 
+updateIssueStatus(issueId: number, status: string) {
+  return this.http.put(
+    `http://localhost:5165/api/issues/${issueId}/status`,
+    JSON.stringify(status),
+    { headers: { 'Content-Type': 'application/json' } }
+  );
+}
+
 updateIssue(issueId: number, payload: any) {
   return this.http.put(
     `http://localhost:5165/api/issues/${issueId}`,
