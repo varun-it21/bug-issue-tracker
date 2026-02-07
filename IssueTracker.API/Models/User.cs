@@ -19,7 +19,6 @@ namespace IssueTracker.API.Models
         [EmailAddress]
         public string user_email { get; set; } = string.Empty;
 
-        [Required]
         [StringLength(255)]
         public string password { get; set; } = string.Empty;
 

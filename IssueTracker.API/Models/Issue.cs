@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace IssueTracker.API.Models
 {
@@ -28,12 +29,14 @@ namespace IssueTracker.API.Models
         [Column("assigned_to")]
         public int AssignedTo { get; set; }
 
+        [JsonIgnore]
         [ForeignKey(nameof(AssignedTo))]
         public User? AssignedUser { get; set; }
 
         [Column("created_by")]
         public int CreatedBy { get; set; }
 
+        [JsonIgnore]
         [ForeignKey(nameof(CreatedBy))]
         public User? CreatedByUser { get; set; }
 
@@ -48,6 +51,7 @@ namespace IssueTracker.API.Models
         [Column("updated_by")]
         public int? UpdatedBy { get; set; }
 
+        [JsonIgnore]
         [ForeignKey(nameof(UpdatedBy))]
         public User? UpdatedByUser { get; set; }
     }

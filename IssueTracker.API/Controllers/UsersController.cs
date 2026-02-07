@@ -36,16 +36,16 @@ namespace IssueTracker.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] User updatedUser)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            ModelState.Remove("password");
             var user = await _context.users
                 .FirstOrDefaultAsync(u => u.UserId == id);
+
             if (user == null)
                 return NotFound($"User not found with id = {id}");
             user.user_name = updatedUser.user_name;
             user.user_email = updatedUser.user_email;
+            user.role_id = updatedUser.role_id;
             user.is_active = updatedUser.is_active;
-            _context.users.Update(user);
             await _context.SaveChangesAsync();
             return Ok(user);
         }

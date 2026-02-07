@@ -25,33 +25,51 @@ namespace IssueTracker.API.Controllers
             return Ok(issues);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIssue(int id, [FromBody] Issue issue)
+        public async Task<IActionResult> UpdateIssue(int id, [FromBody] Issue updated)
         {
-            var existingIssue = await _context.issues.FindAsync(id);
-            if (existingIssue == null)
+            var issue = await _context.issues.FindAsync(id);
+            if (issue == null)
                 return NotFound("Issue not found");
-            existingIssue.Status = issue.Status;
-            existingIssue.UpdatedAt = DateTime.Now;
-            existingIssue.UpdatedBy = issue.UpdatedBy;
 
-            if (!string.IsNullOrWhiteSpace(issue.Description))
-            {
-                var comment = new IssueComment
-                {
-                    IssueId = id,
-                    CommentText = issue.Description,
-                    CmtBy = issue.UpdatedBy ?? 0,
-                    CmtAt = DateTime.Now
-                };
-                _context.IssueComments.Add(comment);
-            }
+            issue.Title = updated.Title;
+            issue.Description = updated.Description;
+            issue.Priority = updated.Priority;
+            issue.Status = updated.Status;
+            issue.AssignedTo = updated.AssignedTo;
+            issue.Deadline = updated.Deadline;
+            issue.UpdatedAt = DateTime.UtcNow;
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+                issue.UpdatedBy = int.Parse(userIdClaim.Value);
 
             await _context.SaveChangesAsync();
-            return Ok(existingIssue);
+            return Ok(issue);
         }
 
+        [Authorize(Roles = "Developer")]
+        [HttpPut("{id}/status")]
+        public async Task<IActionResult> UpdateIssueStatus(int id, [FromBody] string status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+                return BadRequest("Status is required");
 
+            var issue = await _context.issues.FindAsync(id);
+            if (issue == null)
+                return NotFound("Issue not found");
+
+            issue.Status = status;
+            issue.UpdatedAt = DateTime.UtcNow;
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+                issue.UpdatedBy = int.Parse(userIdClaim.Value);
+
+            await _context.SaveChangesAsync();
+            return Ok(issue);
+        }
 
 
 
@@ -71,21 +89,28 @@ namespace IssueTracker.API.Controllers
             return Ok(new { message = "Issue deleted successfully" });
         }
 
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateIssue([FromBody] Issue issue)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            issue.CreatedOn = DateTime.Now;
-            issue.UpdatedAt = DateTime.Now;
+            issue.CreatedOn = DateTime.UtcNow;
+            issue.UpdatedAt = DateTime.UtcNow;
+
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            if (userIdClaim != null)
+            {
+                issue.CreatedBy = int.Parse(userIdClaim.Value);
+            }
 
             _context.issues.Add(issue);
             await _context.SaveChangesAsync();
 
             return Ok(issue);
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetIssueById(int id)
