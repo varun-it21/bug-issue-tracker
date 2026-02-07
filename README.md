@@ -186,23 +186,23 @@ File attachments for issues
 ## 📸 Screenshots
 
 ### Login Page
-<img src="images/login.png" width="800" />
+<img src="/login.png" width="800" />
 
 ### Admin Dashboard
-<img src="images/admin-dashboard.png" width="800" />
+<img src="/admin-dashboard.png" width="800" />
 
 ### Admin Issues
-<img src="images/admin-issues.png" width="800" />
+<img src="/admin-issues.png" width="800" />
 
 ### Add Users
-<img src="images/adduser.png" width="800" />
+<img src="/adduser.png" width="800" />
 
 ### Developer Dashboard
-<img src="images/dev-dashboard.png" width="800" />
+<img src="/dev-dashboard.png" width="800" />
 
 ### My-Issues
-<img src="images/my-issues.png" width="800" />
+<img src="/my-issues.png" width="800" />
 
 ### Update Issues
-<img src="images/dev-update.png" width="800" />
-
+<img src="/dev-update.png" width="800" />
+>>>> >>> 54f89d5 (edited readme file)
