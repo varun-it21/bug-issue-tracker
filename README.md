@@ -183,60 +183,26 @@ SLA and performance metrics
 
 File attachments for issues
 
-## 📸 Application Screenshots
+## 📸 Screenshots
 
-### 🔐 Login Page
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a20f0c56-813b-4783-9850-372cc399cee6" width="800" />
-</p>
+### Login Page
+<img src="images/login.png" width="800" />
 
----
+### Admin Dashboard
+<img src="images/admin-dashboard.png" width="800" />
 
-### 🧑‍💼 Admin Dashboard – Issue List
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/f55172f2-1073-4a3b-90fa-9bb8e4cf2ce5" width="800" />
-</p>
+### Admin Issues
+<img src="images/admin-issues.png" width="800" />
 
----
+### Add Users
+<img src="images/adduser.png" width="800" />
 
-### ✏️ Edit Issue (Admin)
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/cca5cfb5-fa94-4ef0-98a2-47ddc2553c62" width="800" />
-</p>
+### Developer Dashboard
+<img src="images/dev-dashboard.png" width="800" />
 
----
+### My-Issues
+<img src="images/my-issues.png" width="800" />
 
-### 👁️ View Issue Details
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/cac5f4dc-2074-4837-ad56-702b40bbbfb2" width="800" />
-</p>
-
----
-
-### 💬 Issue Comments
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/ad5c9861-1365-4506-ae7c-8ae5d0ee62d1" width="800" />
-</p>
-
----
-
-### 👨‍💻 Developer – My Dashboard
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/101a071e-5eba-4215-92c0-dde6d6c67e6f" width="800" />
-</p>
-
----
-
-### 🔄 Developer – My Issues
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/2644ebe2-632d-4ad3-b16f-828822d5cabb" width="800" />
-</p>
-
----
-
-### Developer- Updation
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/48dbed29-a292-453b-8b4e-c120887a3cbf" width="800" />
-</p>
-
-
+### Update Issues
+<img src="images/dev-update.png" width="800" />
+>>>>>>> 3795f25 (Add screenshots to README)
