@@ -180,16 +180,3 @@ Notifications for overdue issues
 Activity logs and audit trail
 
 SLA and performance metrics
-
-
-
-### Developer – Update Issue & Comment
-
-<p align="center">
-  <img
-    src="https://github.com/user-attachments/assets/5b9e4a07-2509-4a54-a987-e3e484224c21"
-    width="900"
-    alt="Developer update issue screen"
-  />
-</p>
-
