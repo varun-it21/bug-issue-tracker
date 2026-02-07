@@ -181,28 +181,15 @@ Activity logs and audit trail
 
 SLA and performance metrics
 
-File attachments for issues
 
-## 📸 Screenshots
 
-### Login Page
-<img src="/login.png" width="800" />
+### Developer – Update Issue & Comment
 
-### Admin Dashboard
-<img src="/admin-dashboard.png" width="800" />
+<p align="center">
+  <img
+    src="https://github.com/user-attachments/assets/5b9e4a07-2509-4a54-a987-e3e484224c21"
+    width="900"
+    alt="Developer update issue screen"
+  />
+</p>
 
-### Admin Issues
-<img src="/admin-issues.png" width="800" />
-
-### Add Users
-<img src="/adduser.png" width="800" />
-
-### Developer Dashboard
-<img src="/dev-dashboard.png" width="800" />
-
-### My-Issues
-<img src="/my-issues.png" width="800" />
-
-### Update Issues
-<img src="/dev-update.png" width="800" />
->>>> >>> 54f89d5 (edited readme file)
